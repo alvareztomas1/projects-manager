@@ -11,16 +11,19 @@ import {
 import { ProjectsService } from '../services/projects.service';
 import { CreateProjectDTO, UpdateProjectDTO } from '../dto/projects.dto';
 import { ErrorManager } from 'src/utils/error.manager';
+import { CreateUserToProjectDTO } from 'src/users/dto/users.dto';
 
 @Controller('projects')
 export class ProjectsController {
   constructor(private readonly projectsService: ProjectsService) {}
 
-  @Post('create')
-  public async create(@Body() body: CreateProjectDTO) {
+  @Post('create/:userOwner')
+  public async create(
+    @Param('userOwner', ParseUUIDPipe) userId: string,
+    @Body() body: CreateProjectDTO,
+  ) {
     try {
-      // TODO: GIVE OWNER ACCESS LEVEL TO THE USER
-      return await this.projectsService.create(body);
+      return await this.projectsService.create(userId, body);
     } catch (error) {
       throw ErrorManager.createSignaturError((error as ErrorManager).message);
     }
@@ -60,6 +63,15 @@ export class ProjectsController {
   public async delete(@Param('projectId', ParseUUIDPipe) projectId: string) {
     try {
       return await this.projectsService.delete(projectId);
+    } catch (error) {
+      throw ErrorManager.createSignaturError((error as ErrorManager).message);
+    }
+  }
+
+  @Post('add/user-to-project')
+  public async addUserToProject(@Body() body: CreateUserToProjectDTO) {
+    try {
+      return await this.projectsService.addUserToProject(body);
     } catch (error) {
       throw ErrorManager.createSignaturError((error as ErrorManager).message);
     }
