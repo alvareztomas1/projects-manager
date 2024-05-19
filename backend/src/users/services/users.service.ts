@@ -26,8 +26,10 @@ export class UsersService {
 
   public async findById(userId: string): Promise<UserEntity> {
     const user = await this.usersRepository
-      .createQueryBuilder('users')
+      .createQueryBuilder('user')
       .where({ id: userId })
+      .leftJoinAndSelect('user.projectsIncluded', 'projectsIncluded')
+      .leftJoinAndSelect('projectsIncluded.project', 'project')
       .getOne();
 
     if (user === null) {
