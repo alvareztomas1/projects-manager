@@ -77,4 +77,16 @@ export class UsersService {
 
     return deleteResult;
   }
+
+  public async findBy(
+    key: keyof UserEntity,
+    value: any,
+  ): Promise<UserEntity | null> {
+    const user = await this.usersRepository
+      .createQueryBuilder('user')
+      .where({ [key]: value })
+      .getOne();
+
+    return user;
+  }
 }
