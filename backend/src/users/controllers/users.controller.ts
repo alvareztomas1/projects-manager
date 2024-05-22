@@ -7,11 +7,16 @@ import {
   ParseUUIDPipe,
   Post,
   Put,
+  UseGuards,
 } from '@nestjs/common';
 import { UsersService } from '../services/users.service';
 import { CreateUserDTO, UpdateUserDTO } from '../dto/users.dto';
 import { ErrorManager } from 'src/utils/error.manager';
+import { AuthGuard } from 'src/auth/guards/auth.guard';
+import { RolesGuard } from 'src/auth/guards/roles.guard';
+import { AdminAccess } from 'src/auth/decorators/admin-access.decorator';
 
+@UseGuards(AuthGuard, RolesGuard)
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
@@ -55,6 +60,7 @@ export class UsersController {
     }
   }
 
+  @AdminAccess()
   @Delete('delete/:userId')
   public async delete(@Param('userId', ParseUUIDPipe) userId: string) {
     try {

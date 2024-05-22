@@ -26,7 +26,10 @@ export class RolesGuard implements CanActivate {
 
     if (userRole === ROLES.ADMIN) return true;
 
-    const requiredRoles = this.reflector.get(ROLES_KEY, context.getHandler());
+    const requiredRoles = this.reflector.get<ROLES[]>(
+      ROLES_KEY,
+      context.getHandler(),
+    );
     const adminAccess = this.reflector.get(ADMIN_KEY, context.getHandler());
 
     if (requiredRoles === undefined) {
@@ -39,9 +42,7 @@ export class RolesGuard implements CanActivate {
       }
     }
 
-    const userHasRequiredRole = requiredRoles.some(
-      (role: keyof typeof ROLES) => role === userRole,
-    );
+    const userHasRequiredRole = requiredRoles.some((role) => role === userRole);
 
     if (!userHasRequiredRole) {
       throw new UnauthorizedException(
