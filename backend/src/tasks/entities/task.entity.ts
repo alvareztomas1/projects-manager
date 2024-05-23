@@ -16,3 +16,16 @@ export class TaskEntity extends BaseEntity implements ITask {
   @Column({ type: 'enum', enum: STATUS })
   status!: STATUS;
 
+  @ManyToOne(() => ProjectEntity, (project) => project.tasks, {
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn({
+    name: 'project_id',
+  })
+  project!: ProjectEntity;
+
+  @OneToMany(() => UserTaskEntity, (userTask) => userTask.task, {
+    onDelete: 'CASCADE',
+  })
+  usersIncluded!: UserTaskEntity[];
+}

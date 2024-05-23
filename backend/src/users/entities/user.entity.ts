@@ -4,6 +4,7 @@ import { IUser } from '../interfaces/user.interface';
 import { ROLES } from 'src/constants/roles';
 import { Exclude } from 'class-transformer';
 import { UserProjectEntity } from './userProject.entity';
+import { UserTaskEntity } from './userTask.entity';
 
 @Entity({ name: 'users' })
 export class UserEntity extends BaseEntity implements IUser {
@@ -30,4 +31,9 @@ export class UserEntity extends BaseEntity implements IUser {
     onDelete: 'CASCADE',
   })
   projectsIncluded!: UserProjectEntity[];
+
+  @OneToMany(() => UserTaskEntity, (userTask) => userTask.user, {
+    onDelete: 'CASCADE',
+  })
+  tasksIncluded!: UserTaskEntity[];
 }
