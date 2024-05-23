@@ -101,3 +101,27 @@ export class TasksService {
     return updateResult;
   }
 
+  public async addUserToTask(body: CreateUserTaskDTO): Promise<UserTaskEntity> {
+    const user = await this.usersService.findById(body.user);
+    const task = await this.findById(body.task);
+    const userExistsInTask = task.usersIncluded.find(
+      (userTask) => userTask.user.id === user.id,
+    );
+
+    if (userExistsInTask) {
+      throw new ErrorManager('BAD_REQUEST', 'User is already part of the task');
+    }
+
+    const bodyToSave = {
+      user,
+      task,
+    };
+    const userTask = await this.usersTasksRepository.save(bodyToSave);
+
+    if (userTask === undefined) {
+      throw new ErrorManager('BAD_REQUEST', 'Couldnt add user to task');
+    }
+
+    return userTask;
+  }
+}

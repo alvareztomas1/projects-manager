@@ -44,3 +44,13 @@ export class CreateUserToProjectDTO {
   @IsNotEmpty()
   project!: string;
 }
+
+export class CreateUserTaskDTO {
+  @IsUUID()
+  @IsNotEmpty()
+  user!: string;
+
+  @IsUUID()
+  @IsNotEmpty()
+  task!: string;
+}

@@ -68,3 +68,12 @@ export class TasksController {
     }
   }
 
+  @Post('add/user-to-task')
+  public async addUserToTask(@Body() body: CreateUserTaskDTO) {
+    try {
+      return await this.tasksService.addUserToTask(body);
+    } catch (error) {
+      throw ErrorManager.createSignaturError((error as ErrorManager).message);
+    }
+  }
+}
