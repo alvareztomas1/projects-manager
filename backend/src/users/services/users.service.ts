@@ -30,6 +30,8 @@ export class UsersService {
       .where({ id: userId })
       .leftJoinAndSelect('user.projectsIncluded', 'projectsIncluded')
       .leftJoinAndSelect('projectsIncluded.project', 'project')
+      .leftJoinAndSelect('user.tasksIncluded', 'tasksIncluded')
+      .leftJoinAndSelect('tasksIncluded.task', 'task')
       .getOne();
 
     if (user === null) {
