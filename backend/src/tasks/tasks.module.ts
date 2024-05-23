@@ -11,6 +11,7 @@ import { UserTaskEntity } from 'src/users/entities/userTask.entity';
   imports: [
     UsersModule,
     ProjectsModule,
+    TypeOrmModule.forFeature([TaskEntity, UserTaskEntity]),
   ],
   controllers: [TasksController],
   providers: [TasksService],
