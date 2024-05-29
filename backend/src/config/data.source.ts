@@ -17,3 +17,11 @@ export const DataSourceConfig: DataSourceOptions = {
   entities: ['dist/**/*.entity{.ts,.js}'],
   synchronize: true,
 };
+
+export const DataSourceConfigTesting: DataSourceOptions = {
+  type: 'better-sqlite3',
+  database: ':memory:',
+  entities: ['src/**/*.entity{.ts,.js}'],
+  synchronize: true,
+  dropSchema: true,
+};
