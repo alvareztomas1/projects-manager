@@ -7,16 +7,23 @@ import {
   ParseUUIDPipe,
   Post,
   Put,
+  UseGuards,
 } from '@nestjs/common';
 import { TasksService } from '../services/tasks.service';
 import { ErrorManager } from 'src/utils/error.manager';
 import { CreateTaskDTO, UpdateTaskDTO } from '../dto/task.dto';
 import { CreateUserTaskDTO } from 'src/users/dto/users.dto';
+import { AuthGuard } from 'src/auth/guards/auth.guard';
+import { RolesGuard } from 'src/auth/guards/roles.guard';
+import { AccessLevelGuard } from 'src/auth/guards/access-level.guard';
+import { AccessLevel } from 'src/auth/decorators/access-level.decorator';
 
+@UseGuards(AuthGuard, RolesGuard, AccessLevelGuard)
 @Controller('tasks')
 export class TasksController {
   constructor(private readonly tasksService: TasksService) {}
 
+  @AccessLevel('MAINTAINER')
   @Post('create/:projectId')
   public async create(
     @Param('projectId', ParseUUIDPipe) projectId: string,
@@ -47,6 +54,7 @@ export class TasksController {
     }
   }
 
+  @AccessLevel('MAINTAINER')
   @Delete('delete/:taskId')
   public async delete(@Param('taskId', ParseUUIDPipe) taskId: string) {
     try {
@@ -56,6 +64,7 @@ export class TasksController {
     }
   }
 
+  @AccessLevel('MAINTAINER')
   @Put('update/:taskId')
   public async update(
     @Param('taskId', ParseUUIDPipe) taskId: string,
@@ -68,6 +77,7 @@ export class TasksController {
     }
   }
 
+  @AccessLevel('OWNER')
   @Post('add/user-to-task')
   public async addUserToTask(@Body() body: CreateUserTaskDTO) {
     try {
