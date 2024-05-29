@@ -1,5 +1,3 @@
-import { ACCESS_LEVEL } from 'src/constants/access-levels';
-import { ROLES } from 'src/constants/roles';
 import { UserEntity } from '../entities/user.entity';
 import { ProjectEntity } from 'src/projects/entities/project.entity';
 
@@ -9,11 +7,11 @@ export interface IUser {
   password: string;
   firstName: string;
   lastName: string;
-  role: ROLES;
+  role: string;
 }
 
 export interface IUserProject {
-  accessLevel: ACCESS_LEVEL;
+  accessLevel: string;
   user: UserEntity;
   project: ProjectEntity;
 }

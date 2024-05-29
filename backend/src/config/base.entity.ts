@@ -10,13 +10,13 @@ export abstract class BaseEntity {
 
   @CreateDateColumn({
     name: 'created_at',
-    type: 'timestamp',
+    type: process.env.NODE_ENV === 'test' ? 'datetime' : 'timestamp',
   })
   createdAt!: Date;
 
   @UpdateDateColumn({
     name: 'updated_at',
-    type: 'timestamp',
+    type: process.env.NODE_ENV === 'test' ? 'datetime' : 'timestamp',
   })
   updatedAt!: Date;
 }

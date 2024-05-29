@@ -117,7 +117,7 @@ export class ProjectsService {
     }
 
     const bodyToSave = {
-      accessLevel: body.accessLevel,
+      accessLevel: `${body.accessLevel}`,
       user,
       project,
     };

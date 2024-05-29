@@ -1,7 +1,6 @@
 import { BaseEntity } from 'src/config/base.entity';
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import { ITask } from '../interface/task.interface';
-import { STATUS } from 'src/constants/status';
 import { ProjectEntity } from 'src/projects/entities/project.entity';
 import { UserTaskEntity } from 'src/users/entities/userTask.entity';
 
@@ -13,8 +12,8 @@ export class TaskEntity extends BaseEntity implements ITask {
   @Column()
   description!: string;
 
-  @Column({ type: 'enum', enum: STATUS })
-  status!: STATUS;
+  @Column()
+  status!: string;
 
   @ManyToOne(() => ProjectEntity, (project) => project.tasks, {
     onDelete: 'CASCADE',
