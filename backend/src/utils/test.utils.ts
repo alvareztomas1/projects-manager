@@ -1,8 +1,9 @@
 import { ROLES } from 'src/constants/roles';
-import { CreateUserDTO } from 'src/users/dto/users.dto';
 import { STATUS } from 'src/constants/status';
+import { CreateProjectDTO } from 'src/projects/dto/projects.dto';
 import { CreateTaskDTO } from 'src/tasks/dto/task.dto';
 import { CreateUserDTO, CreateUserTaskDTO } from 'src/users/dto/users.dto';
+
 export const uuidSample = '550e8400-e29b-41d4-a716-446655440000';
 
 export const userSample: CreateUserDTO = {
@@ -19,6 +20,12 @@ export const taskSample: CreateTaskDTO = {
   description: 'description',
   status: STATUS.PENDING,
 };
+
+export const projectSample: CreateProjectDTO = {
+  title: 'title',
+  description: 'description',
+};
+
 export const userTaskSample: CreateUserTaskDTO = {
   user: uuidSample,
   task: uuidSample,

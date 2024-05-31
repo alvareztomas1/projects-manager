@@ -4,8 +4,7 @@ import { UserEntity } from '../entities/user.entity';
 import { UsersService } from './users.service';
 import { Repository } from 'typeorm';
 import { DataSourceConfigTesting } from 'src/config/data.source';
-import { ErrorManager } from 'src/utils/error.manager';
-import { userSample } from 'src/utils/test.utils';
+import { userSample, uuidSample } from 'src/utils/test.utils';
 
 describe('UsersService', () => {
   let usersService: UsersService;
@@ -39,7 +38,7 @@ describe('UsersService', () => {
       jest.spyOn(usersRepository, 'save').mockImplementation(jest.fn());
 
       await expect(usersService.create(userSample)).rejects.toThrow(
-        ErrorManager,
+        'BAD_REQUEST :: Couldnt save the user',
       );
     });
   });
@@ -54,7 +53,9 @@ describe('UsersService', () => {
       });
     });
     it('should throw an error when finding the user fails', async () => {
-      await expect(usersService.findById('')).rejects.toThrow(ErrorManager);
+      await expect(usersService.findById('')).rejects.toThrow(
+        'NOT_FOUND :: Couldnt find an user with the received id',
+      );
     });
   });
 
@@ -64,7 +65,9 @@ describe('UsersService', () => {
       expect(await usersService.findAll()).toEqual([createdUser]);
     });
     it('should throw an error when fingin all users fails', async () => {
-      await expect(usersService.findAll()).rejects.toThrow(ErrorManager);
+      await expect(usersService.findAll()).rejects.toThrow(
+        'NOT_FOUND :: Couldnt find any user',
+      );
     });
   });
 
@@ -80,11 +83,13 @@ describe('UsersService', () => {
       await usersService.delete(createdUser.id);
 
       await expect(usersService.findById(createdUser.id)).rejects.toThrow(
-        ErrorManager,
+        'NOT_FOUND :: Couldnt find an user with the received id',
       );
     });
     it('should throw an error when deleting an user fails', async () => {
-      await expect(usersService.delete('1')).rejects.toThrow(ErrorManager);
+      await expect(usersService.delete('1')).rejects.toThrow(
+        'BAD_REQUEST :: Couldnt delete the user with the received id',
+      );
     });
   });
 
@@ -101,9 +106,11 @@ describe('UsersService', () => {
       expect(editedUser.username).toEqual(editedName.username);
     });
     it('should throw an error when editing an user fails', async () => {
-      await expect(usersService.updateUser('1', {})).rejects.toThrow(
-        ErrorManager,
-      );
+      await expect(
+        usersService.updateUser(uuidSample, {
+          username: 'edited username',
+        }),
+      ).rejects.toThrow('BAD_REQUEST :: Couldnt update the user');
     });
   });
 
