@@ -31,15 +31,16 @@ export class ProjectsService {
       await queryRunner.startTransaction();
 
       const project = await this.projectsRepository.save(body);
+
+      if (project === undefined) {
+        throw new ErrorManager('BAD_REQUEST', 'Couldnt save the project');
+      }
+
       await this.addUserToProject({
         accessLevel: ACCESS_LEVEL.OWNER,
         user: userId,
         project: project.id,
       });
-
-      if (project === undefined) {
-        throw new ErrorManager('BAD_REQUEST', 'Couldnt save the project');
-      }
 
       await queryRunner.commitTransaction();
       return project;
