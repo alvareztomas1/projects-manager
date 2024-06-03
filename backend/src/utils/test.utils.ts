@@ -1,8 +1,13 @@
+import { ACCESS_LEVEL } from 'src/constants/access-levels';
 import { ROLES } from 'src/constants/roles';
 import { STATUS } from 'src/constants/status';
 import { CreateProjectDTO } from 'src/projects/dto/projects.dto';
 import { CreateTaskDTO } from 'src/tasks/dto/task.dto';
-import { CreateUserDTO, CreateUserTaskDTO } from 'src/users/dto/users.dto';
+import {
+  CreateUserDTO,
+  CreateUserTaskDTO,
+  CreateUserToProjectDTO,
+} from 'src/users/dto/users.dto';
 
 export const uuidSample = '550e8400-e29b-41d4-a716-446655440000';
 
@@ -29,6 +34,12 @@ export const projectSample: CreateProjectDTO = {
 export const userTaskSample: CreateUserTaskDTO = {
   user: uuidSample,
   task: uuidSample,
+};
+
+export const userProjectSample: CreateUserToProjectDTO = {
+  user: uuidSample,
+  project: uuidSample,
+  accessLevel: ACCESS_LEVEL.BASIC,
 };
 
 export const guardMock = {
