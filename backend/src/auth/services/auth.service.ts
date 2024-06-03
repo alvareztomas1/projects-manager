@@ -1,7 +1,8 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { UsersService } from 'src/users/services/users.service';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
+import { ErrorManager } from 'src/utils/error.manager';
 
 @Injectable()
 export class AuthService {
@@ -18,7 +19,8 @@ export class AuthService {
     const userByEmail = await this.usersService.findBy('email', userIdentifier);
 
     if (userByEmail === null && userByUsername === null) {
-      throw new UnauthorizedException(
+      throw new ErrorManager(
+        'UNAUTHORIZED',
         'Couldnt find any user with the received username/email',
       );
     }
@@ -30,7 +32,7 @@ export class AuthService {
       );
 
       if (!passwordIsValid) {
-        throw new UnauthorizedException('Password is incorrect');
+        throw new ErrorManager('UNAUTHORIZED', 'Password is incorrect');
       }
     }
 
@@ -40,7 +42,7 @@ export class AuthService {
         userByEmail.password,
       );
       if (!passwordIsValid) {
-        throw new UnauthorizedException('Password is incorrect');
+        throw new ErrorManager('UNAUTHORIZED', 'Password is incorrect');
       }
     }
 
