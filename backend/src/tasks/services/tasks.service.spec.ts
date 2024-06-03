@@ -140,9 +140,11 @@ describe('TasksService', () => {
         title: 'edited',
       });
 
-      const editedTask = await tasksService.findById(createdTask.id);
+      const editedTask = await tasksRepository.findOneBy({
+        id: createdTask.id,
+      });
 
-      expect(editedTask.title).toEqual('edited');
+      expect(editedTask?.title).toEqual('edited');
     });
 
     it('should throw an error when updating a task fails', async () => {
