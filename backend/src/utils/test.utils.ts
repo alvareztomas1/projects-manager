@@ -1,3 +1,4 @@
+import { AuthDTO } from 'src/auth/dto/auth.dto';
 import { ACCESS_LEVEL } from 'src/constants/access-levels';
 import { ROLES } from 'src/constants/roles';
 import { STATUS } from 'src/constants/status';
@@ -40,6 +41,11 @@ export const userProjectSample: CreateUserToProjectDTO = {
   user: uuidSample,
   project: uuidSample,
   accessLevel: ACCESS_LEVEL.BASIC,
+};
+
+export const authSample: AuthDTO = {
+  userIdentifier: 'user',
+  password: 'password',
 };
 
 export const guardMock = {
