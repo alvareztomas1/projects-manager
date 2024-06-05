@@ -9,10 +9,6 @@ export class ErrorManager extends Error {
     const errorName: any = message.split(' :: ')[0];
     const errorCode = Number(HttpStatus[errorName]);
 
-    if (errorName && message) {
-      throw new HttpException(message, errorCode);
-    } else {
-      throw new HttpException(message, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
+    throw new HttpException(message, errorCode);
   }
 }
