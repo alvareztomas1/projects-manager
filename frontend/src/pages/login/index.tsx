@@ -17,7 +17,32 @@ import {
 import { themePalette } from '../../config/theme.config';
 import { Close, LockOutlined } from '@mui/icons-material';
 
+type LoginType = {
+  user: string;
+  password: string;
+  remember: boolean;
+};
+
 export const LoginPage: React.FC<{}> = () => {
+  const [logInData, setLogInData] = React.useState<LoginType>({
+    user: '',
+    password: '',
+    remember: false,
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value, type, checked } = e.target;
+
+    setLogInData({
+      ...logInData,
+      [name]: type === 'checkbox' ? checked : value,
+    });
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLInputElement>) => {
+    e.preventDefault();
+  };
+
   return (
     <Container maxWidth="sm">
       <Grid
@@ -48,7 +73,7 @@ export const LoginPage: React.FC<{}> = () => {
 
             <Divider sx={{ mt: 1 }} />
 
-            <Box alignItems={'center'} component="form">
+            <Box alignItems={'center'} component="form" onSubmit={handleSubmit}>
               <TextField
                 margin="normal"
                 type="text"
@@ -58,6 +83,7 @@ export const LoginPage: React.FC<{}> = () => {
                 variant="outlined"
                 fullWidth
                 sx={{ mt: 2 }}
+                onChange={handleChange}
                 required
               />
               <TextField
@@ -68,10 +94,18 @@ export const LoginPage: React.FC<{}> = () => {
                 name="password"
                 label="Password"
                 variant="outlined"
+                onChange={handleChange}
                 required
               />
               <FormControlLabel
-                control={<Checkbox name="remember" color="primary" />}
+                control={
+                  <Checkbox
+                    name="remember"
+                    checked={logInData.remember}
+                    color="primary"
+                    onChange={handleChange}
+                  />
+                }
                 label="Remember Me"
                 labelPlacement="end"
               />
@@ -109,5 +143,4 @@ export const LoginPage: React.FC<{}> = () => {
       </Grid>
     </Container>
   );
-};
 };
