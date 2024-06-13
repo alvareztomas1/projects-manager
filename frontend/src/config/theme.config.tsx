@@ -25,6 +25,17 @@ const theme = createTheme({
   typography: {
     fontFamily: themePalette.FONT_GLOBAL,
   },
+  components: {
+    MuiButton: {
+      defaultProps: {
+        style: {
+          textTransform: 'none',
+          boxShadow: 'none',
+          borderRadius: '5px',
+        },
+      },
+    },
+  },
 });
 
 export const ThemeConfig: React.FC<ThemeProp> = ({ children }) => {
