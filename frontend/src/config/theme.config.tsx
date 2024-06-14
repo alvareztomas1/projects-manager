@@ -35,6 +35,23 @@ const theme = createTheme({
         },
       },
     },
+    MuiAlert: {
+      styleOverrides: {
+        outlinedError: {
+          backgroundColor: '#1c0303',
+          borderColor: '#660000',
+        },
+        outlinedSuccess: {
+          backgroundColor: '#015201',
+        },
+        outlinedInfo: {
+          backgroundColor: '#4d648d',
+        },
+        outlinedWarning: {
+          backgroundColor: '#3b3b00',
+        },
+      },
+    },
   },
 });
 
