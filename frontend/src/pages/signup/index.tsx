@@ -15,7 +15,7 @@ import {
   Typography,
 } from '@mui/material';
 import { themePalette } from '../../config/theme.config';
-import { Close, Login } from '@mui/icons-material';
+import { Close, Login, Visibility, VisibilityOff } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 
 type LoginDataType = {
@@ -29,6 +29,7 @@ type LoginDataType = {
 
 export const SignupPage: React.FC<{}> = () => {
   const navigate = useNavigate();
+  const [showPassword, setShowPassword] = React.useState<boolean>(false);
   const [signUpData, setLogInData] = React.useState<LoginDataType>({
     username: '',
     email: '',
@@ -37,6 +38,8 @@ export const SignupPage: React.FC<{}> = () => {
     password: '',
     confirmPassword: '',
   });
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -149,13 +152,16 @@ export const SignupPage: React.FC<{}> = () => {
                       id="password"
                       name="password"
                       onChange={handleChange}
-                      type="password"
+                      type={showPassword ? 'text' : 'password'}
                       endAdornment={
                         <InputAdornment position="end">
                           <IconButton
                             aria-label="toggle password visibility"
+                            onClick={handleClickShowPassword}
                             edge="end"
-                          ></IconButton>
+                          >
+                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                          </IconButton>
                         </InputAdornment>
                       }
                       label="Password"
@@ -170,15 +176,18 @@ export const SignupPage: React.FC<{}> = () => {
                     </InputLabel>
                     <OutlinedInput
                       id="confirm-password"
-                      type="password"
+                      type={showPassword ? 'text' : 'password'}
                       name="confirmPassword"
                       onChange={handleChange}
                       endAdornment={
                         <InputAdornment position="end">
                           <IconButton
                             aria-label="toggle password visibility"
+                            onClick={handleClickShowPassword}
                             edge="end"
-                          ></IconButton>
+                          >
+                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                          </IconButton>
                         </InputAdornment>
                       }
                       label="Confirm password"
