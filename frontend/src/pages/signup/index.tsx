@@ -47,7 +47,7 @@ export const SignupPage: React.FC<{}> = () => {
 
       if (response.error) return getError((response as Error).message);
 
-      // TODO: Redirect user
+      navigate(`/signup-success/${response.username}`);
     },
   });
 
