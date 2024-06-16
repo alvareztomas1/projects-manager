@@ -4,21 +4,22 @@ import {
   Button,
   Container,
   Divider,
-  FormControl,
   Grid,
   IconButton,
-  InputAdornment,
-  InputLabel,
   Link,
-  OutlinedInput,
   Paper,
+  TextField,
   Typography,
 } from '@mui/material';
 import { themePalette } from '../../config/theme.config';
-import { Close, Login, Visibility, VisibilityOff } from '@mui/icons-material';
+import { Close, Login } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
+import { useNotification } from '../../context/notification.context';
+import { users } from '../../api/users.api';
+import { useFormik } from 'formik';
+import { SignUpValidate } from '../../utils/validateForm';
 
-type LoginDataType = {
+type SignUpDataType = {
   username: string;
   email: string;
   firstName: string;
@@ -29,30 +30,26 @@ type LoginDataType = {
 
 export const SignupPage: React.FC<{}> = () => {
   const navigate = useNavigate();
-  const [showPassword, setShowPassword] = React.useState<boolean>(false);
-  const [signUpData, setLogInData] = React.useState<LoginDataType>({
-    username: '',
-    email: '',
-    firstName: '',
-    lastName: '',
-    password: '',
-    confirmPassword: '',
+  const { getError } = useNotification();
+  const formik = useFormik<SignUpDataType>({
+    initialValues: {
+      username: '',
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+    },
+    validationSchema: SignUpValidate,
+    onSubmit: async (values) => {
+      const { confirmPassword, ...userData } = values;
+      const response = await users.create(userData);
+
+      if (response.error) return getError((response as Error).message);
+
+      // TODO: Redirect user
+    },
   });
-
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-
-    setLogInData({
-      ...signUpData,
-      [name]: value,
-    });
-  };
-
-  const handleSubmit = async (e: React.FormEvent<HTMLInputElement>) => {
-    e.preventDefault();
-  };
 
   return (
     <Container maxWidth="sm">
@@ -81,138 +78,158 @@ export const SignupPage: React.FC<{}> = () => {
               </IconButton>
             </Box>
 
-            <Divider sx={{ mt: 1, mb: 1 }} />
+            <Divider sx={{ mt: 1, mb: 2 }} />
 
-            <Box alignItems={'center'} component="form" onSubmit={handleSubmit}>
-              <Grid container alignItems="center" justifyContent="center">
+            <Box
+              alignItems={'center'}
+              component="form"
+              onSubmit={formik.handleSubmit}
+            >
+              <Grid gap={3} justifyContent={'center'} container>
                 <Grid item>
-                  <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
-                    <InputLabel htmlFor="username">Username</InputLabel>
-                    <OutlinedInput
-                      multiline
-                      type="text"
-                      id="username"
-                      name="username"
-                      label="Username"
-                      placeholder="alvareztomas99"
-                      onChange={handleChange}
-                    />
-                  </FormControl>
+                  <TextField
+                    multiline
+                    sx={{ width: '25ch' }}
+                    variant="outlined"
+                    type="text"
+                    id="username"
+                    name="username"
+                    label="Username"
+                    placeholder="alvareztomas99"
+                    value={formik.values.username}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    error={
+                      formik.touched.username && Boolean(formik.errors.username)
+                    }
+                    helperText={
+                      formik.touched.username && formik.errors.username
+                    }
+                  />
                 </Grid>
 
                 <Grid item>
-                  <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
-                    <InputLabel htmlFor="email">Email</InputLabel>
-                    <OutlinedInput
-                      multiline
-                      type="email"
-                      id="email"
-                      name="email"
-                      label="Email"
-                      placeholder="tomas@email.com"
-                      onChange={handleChange}
-                    />
-                  </FormControl>
+                  <TextField
+                    multiline
+                    variant="outlined"
+                    type="email"
+                    id="email"
+                    name="email"
+                    label="Email"
+                    sx={{ width: '25ch' }}
+                    placeholder="tomas@email.com"
+                    value={formik.values.email}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    error={formik.touched.email && Boolean(formik.errors.email)}
+                    helperText={formik.touched.email && formik.errors.email}
+                  />
                 </Grid>
 
                 <Grid item>
-                  <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
-                    <InputLabel htmlFor="last-name">First name</InputLabel>
-                    <OutlinedInput
-                      multiline
-                      type="text"
-                      id="first-name"
-                      name="firstName"
-                      label="First name"
-                      placeholder="Tomás"
-                      onChange={handleChange}
-                    />
-                  </FormControl>
+                  <TextField
+                    sx={{ width: '25ch' }}
+                    multiline
+                    variant="outlined"
+                    type="text"
+                    id="first-name"
+                    name="firstName"
+                    label="First name"
+                    placeholder="Tomás"
+                    value={formik.values.firstName}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    error={
+                      formik.touched.firstName &&
+                      Boolean(formik.errors.firstName)
+                    }
+                    helperText={
+                      formik.touched.firstName && formik.errors.firstName
+                    }
+                  />
                 </Grid>
 
                 <Grid item>
-                  <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
-                    <InputLabel htmlFor="last-name">Last name</InputLabel>
-                    <OutlinedInput
-                      multiline
-                      type="text"
-                      id="last-name"
-                      name="lastName"
-                      label="Last name"
-                      placeholder="Alvarez"
-                      onChange={handleChange}
-                    />
-                  </FormControl>
+                  <TextField
+                    sx={{ width: '25ch' }}
+                    multiline
+                    variant="outlined"
+                    type="text"
+                    id="last-name"
+                    name="lastName"
+                    label="Last name"
+                    placeholder="Alvarez"
+                    value={formik.values.lastName}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    error={
+                      formik.touched.lastName && Boolean(formik.errors.lastName)
+                    }
+                    helperText={
+                      formik.touched.lastName && formik.errors.lastName
+                    }
+                  />
                 </Grid>
 
                 <Grid item>
-                  <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
-                    <InputLabel htmlFor="password">Password</InputLabel>
-                    <OutlinedInput
-                      id="password"
-                      name="password"
-                      onChange={handleChange}
-                      type={showPassword ? 'text' : 'password'}
-                      endAdornment={
-                        <InputAdornment position="end">
-                          <IconButton
-                            aria-label="toggle password visibility"
-                            onClick={handleClickShowPassword}
-                            edge="end"
-                          >
-                            {showPassword ? <VisibilityOff /> : <Visibility />}
-                          </IconButton>
-                        </InputAdornment>
-                      }
-                      label="Password"
-                    />
-                  </FormControl>
+                  <TextField
+                    sx={{ width: '25ch' }}
+                    type="password"
+                    id="password"
+                    name="password"
+                    value={formik.values.password}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    error={
+                      formik.touched.password && Boolean(formik.errors.password)
+                    }
+                    helperText={
+                      formik.touched.password && formik.errors.password
+                    }
+                    label="Password"
+                  />
                 </Grid>
 
                 <Grid item>
-                  <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
-                    <InputLabel htmlFor="confirm-password">
-                      Confirm password
-                    </InputLabel>
-                    <OutlinedInput
-                      id="confirm-password"
-                      type={showPassword ? 'text' : 'password'}
-                      name="confirmPassword"
-                      onChange={handleChange}
-                      endAdornment={
-                        <InputAdornment position="end">
-                          <IconButton
-                            aria-label="toggle password visibility"
-                            onClick={handleClickShowPassword}
-                            edge="end"
-                          >
-                            {showPassword ? <VisibilityOff /> : <Visibility />}
-                          </IconButton>
-                        </InputAdornment>
-                      }
-                      label="Confirm password"
-                    />
-                  </FormControl>
+                  <TextField
+                    sx={{ width: '25ch' }}
+                    id="confirm-password"
+                    type="password"
+                    name="confirmPassword"
+                    value={formik.values.confirmPassword}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    error={
+                      formik.touched.confirmPassword &&
+                      Boolean(formik.errors.confirmPassword)
+                    }
+                    helperText={
+                      formik.touched.confirmPassword &&
+                      formik.errors.confirmPassword
+                    }
+                    label="Confirm password"
+                  />
                 </Grid>
               </Grid>
 
               <Button
                 fullWidth
                 variant="contained"
-                sx={{ mb: 2, mt: 1 }}
+                sx={{ mb: 2, mt: 2 }}
                 type="submit"
                 size="large"
               >
                 Sign up
               </Button>
 
-              <Divider sx={{ mb: 2 }} />
+              <Divider sx={{ mb: 1 }} />
 
               <Typography
                 sx={{
+                  mt: 1,
                   display: 'flex',
-                  alignItems: 'center',
                   justifyContent: 'center',
+                  alignContent: 'center',
                 }}
               >
                 ¿Already member?
