@@ -1,4 +1,23 @@
 import * as yup from 'yup';
+
+export const LoginValidate = yup.object().shape({
+  userIdentifier: yup
+    .string()
+    .trim()
+    .min(5, 'Must be at least 5 characters')
+    .max(254, 'Must not exceed 254 characters')
+    .required('Username/Email field is required'),
+
+  password: yup
+    .string()
+    .trim()
+    .required('Password field is required')
+    .min(5, 'Must be at least 5 characters')
+    .max(25, 'Must be max 25 characters'),
+
+  remember: yup.boolean(),
+});
+
 export const SignUpValidate = yup.object().shape({
   username: yup
     .string()
