@@ -9,39 +9,44 @@ import {
   FormControlLabel,
   Grid,
   IconButton,
+  InputAdornment,
   Link,
   Paper,
   TextField,
   Typography,
 } from '@mui/material';
 import { themePalette } from '../../config/theme.config';
-import { Close, LockOutlined } from '@mui/icons-material';
+import {
+  Close,
+  LockOutlined,
+  Visibility,
+  VisibilityOff,
+} from '@mui/icons-material';
+import { LoginValidate } from '../../utils/validateForm';
+import { useFormik } from 'formik';
 
 type LoginType = {
-  user: string;
+  userIdentifier: string;
   password: string;
   remember: boolean;
 };
 
 export const LoginPage: React.FC<{}> = () => {
-  const [logInData, setLogInData] = React.useState<LoginType>({
-    user: '',
-    password: '',
-    remember: false,
+  const [showPassword, setShowPassword] = React.useState(false);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+
+  const formik = useFormik<LoginType>({
+    initialValues: {
+      userIdentifier: '',
+      password: '',
+      remember: false,
+    },
+    validationSchema: LoginValidate,
+    onSubmit: async (values) => {
+    },
   });
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value, type, checked } = e.target;
-
-    setLogInData({
-      ...logInData,
-      [name]: type === 'checkbox' ? checked : value,
-    });
-  };
-
-  const handleSubmit = (e: React.FormEvent<HTMLInputElement>) => {
-    e.preventDefault();
-  };
 
   return (
     <Container maxWidth="sm">
@@ -59,6 +64,7 @@ export const LoginPage: React.FC<{}> = () => {
               padding: 3,
               borderRadius: '10px',
             }}
+            elevation={24}
           >
             <Box display={'flex'} alignItems="center">
               <Avatar sx={{ mb: 1, mr: 'auto', bgcolor: 'secondary.main' }}>
@@ -73,37 +79,61 @@ export const LoginPage: React.FC<{}> = () => {
 
             <Divider sx={{ mt: 1 }} />
 
-            <Box alignItems={'center'} component="form" onSubmit={handleSubmit}>
+            <Box
+              alignItems={'center'}
+              component="form"
+              onSubmit={formik.handleSubmit}
+            >
               <TextField
                 margin="normal"
                 type="text"
-                id="user"
-                name="user"
+                id="userIdentifier"
+                name="userIdentifier"
                 label="Username / Email"
                 variant="outlined"
                 fullWidth
-                sx={{ mt: 2 }}
-                onChange={handleChange}
-                required
+                value={formik.values.userIdentifier}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                error={
+                  formik.touched.userIdentifier &&
+                  Boolean(formik.errors.userIdentifier)
+                }
+                helperText={
+                  formik.touched.userIdentifier && formik.errors.userIdentifier
+                }
               />
               <TextField
                 margin="normal"
-                fullWidth
-                type="password"
-                id="password"
-                name="password"
-                label="Password"
                 variant="outlined"
-                onChange={handleChange}
-                required
+                fullWidth
+                id="password"
+                type={showPassword ? 'text' : 'password'}
+                label="Password"
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      <IconButton onClick={handleClickShowPassword} edge="end">
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  ),
+                }}
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                error={
+                  formik.touched.password && Boolean(formik.errors.password)
+                }
+                helperText={formik.touched.password && formik.errors.password}
               />
+
               <FormControlLabel
                 control={
                   <Checkbox
                     name="remember"
-                    checked={logInData.remember}
                     color="primary"
-                    onChange={handleChange}
+                    checked={formik.values.remember}
+                    onChange={formik.handleChange}
                   />
                 }
                 label="Remember Me"
