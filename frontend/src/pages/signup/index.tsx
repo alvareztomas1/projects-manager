@@ -6,13 +6,14 @@ import {
   Divider,
   Grid,
   IconButton,
+  InputAdornment,
   Link,
   Paper,
   TextField,
   Typography,
 } from '@mui/material';
 import { themePalette } from '../../config/theme.config';
-import { Close, Login } from '@mui/icons-material';
+import { Close, Login, Visibility, VisibilityOff } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import { useNotification } from '../../context/notification.context';
 import { users } from '../../api/users.api';
@@ -31,6 +32,7 @@ type SignUpDataType = {
 export const SignupPage: React.FC<{}> = () => {
   const navigate = useNavigate();
   const { getError } = useNotification();
+
   const formik = useFormik<SignUpDataType>({
     initialValues: {
       username: '',
@@ -52,6 +54,10 @@ export const SignupPage: React.FC<{}> = () => {
       }
     },
   });
+
+  const [showPassword, setShowPassword] = React.useState(false);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   return (
     <Container maxWidth="sm">
@@ -176,10 +182,22 @@ export const SignupPage: React.FC<{}> = () => {
                 <Grid item>
                   <TextField
                     sx={{ width: '25ch' }}
-                    type="password"
+                    type={showPassword ? 'text' : 'password'}
                     id="password"
                     name="password"
                     value={formik.values.password}
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton
+                            onClick={handleClickShowPassword}
+                            edge="end"
+                          >
+                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    }}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     error={
@@ -196,9 +214,21 @@ export const SignupPage: React.FC<{}> = () => {
                   <TextField
                     sx={{ width: '25ch' }}
                     id="confirm-password"
-                    type="password"
+                    type={showPassword ? 'text' : 'password'}
                     name="confirmPassword"
                     value={formik.values.confirmPassword}
+                    InputProps={{
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <IconButton
+                            onClick={handleClickShowPassword}
+                            edge="end"
+                          >
+                            {showPassword ? <VisibilityOff /> : <Visibility />}
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    }}
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     error={
