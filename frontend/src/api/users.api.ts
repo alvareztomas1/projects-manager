@@ -20,7 +20,13 @@ export const users = {
         },
         body: JSON.stringify(data),
       });
-      return await response.json();
+      const responseJSON = await response.json();
+
+      if (!response.ok) {
+        throw new Error((responseJSON as Error).message);
+      }
+
+      return responseJSON;
     } catch (error) {
       throw error;
     }

@@ -42,12 +42,14 @@ export const SignupPage: React.FC<{}> = () => {
     },
     validationSchema: SignUpValidate,
     onSubmit: async (values) => {
-      const { confirmPassword, ...userData } = values;
-      const response = await users.create(userData);
+      try {
+        const { confirmPassword, ...userData } = values;
+        const response = await users.create(userData);
 
-      if (response.error) return getError((response as Error).message);
-
-      navigate(`/signup-success/${response.username}`);
+        navigate(`/signup-success/${response.username}`);
+      } catch (error) {
+        getError((error as Error).message);
+      }
     },
   });
 
