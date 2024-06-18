@@ -22,9 +22,11 @@ import {
   Visibility,
   VisibilityOff,
 } from '@mui/icons-material';
+import { useNotification } from '../../context/notification.context';
 import { LoginValidate } from '../../utils/validateForm';
 import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
+import { auth } from '../../api/auth.api';
 
 type LoginType = {
   userIdentifier: string;
@@ -38,6 +40,7 @@ export const LoginPage: React.FC<{}> = () => {
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
+  const { getError } = useNotification();
 
   const formik = useFormik<LoginType>({
     initialValues: {
@@ -47,6 +50,14 @@ export const LoginPage: React.FC<{}> = () => {
     },
     validationSchema: LoginValidate,
     onSubmit: async (values) => {
+      const { remember, ...userData } = values;
+
+      try {
+        const response = await auth.login(userData);
+        // TODO: FINISH LOG IN
+      } catch (error) {
+        getError((error as Error).message);
+      }
     },
   });
 
@@ -163,7 +174,6 @@ export const LoginPage: React.FC<{}> = () => {
               <Divider sx={{ mb: 1 }} />
 
               <Link
-                sx={{ width: '100%', mb: 1, mr: 'auto' }}
                 sx={{ width: '100%', mb: 1, mr: 'auto', cursor: 'pointer' }}
                 href="/forgot-password"
                 underline="hover"
