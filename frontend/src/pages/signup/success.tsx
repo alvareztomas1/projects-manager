@@ -8,12 +8,14 @@ import {
   Typography,
 } from '@mui/material';
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { themePalette } from '../../config/theme.config';
 import { Close } from '@mui/icons-material';
 
 export const SuccessSignUpPage: React.FC<{}> = () => {
   const { username } = useParams();
+  const navigate = useNavigate();
+
   return (
     <Grid
       container
@@ -52,7 +54,7 @@ export const SuccessSignUpPage: React.FC<{}> = () => {
           size="large"
           variant="contained"
           color="primary"
-          href="/login"
+          onClick={() => navigate('/login')}
         >
           Log In
         </Button>

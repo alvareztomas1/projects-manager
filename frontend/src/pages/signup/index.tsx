@@ -273,7 +273,7 @@ export const SignupPage: React.FC<{}> = () => {
                     alignItems: 'center',
                     justifyContent: 'center',
                   }}
-                  onClick={() => navigate('/login')}
+                  href="/login"
                   underline="hover"
                 >
                   Log in <Login sx={{ ml: 0.3 }} fontSize="small" />

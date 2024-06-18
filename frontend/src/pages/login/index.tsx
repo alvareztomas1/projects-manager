@@ -23,6 +23,7 @@ import {
   VisibilityOff,
 } from '@mui/icons-material';
 import { LoginValidate } from '../../utils/validateForm';
+import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 
 type LoginType = {
@@ -32,6 +33,7 @@ type LoginType = {
 };
 
 export const LoginPage: React.FC<{}> = () => {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = React.useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
@@ -70,7 +72,7 @@ export const LoginPage: React.FC<{}> = () => {
               <Avatar sx={{ mb: 1, mr: 'auto', bgcolor: 'secondary.main' }}>
                 <LockOutlined />
               </Avatar>
-              <IconButton href="/">
+              <IconButton onClick={() => navigate('/')}>
                 <Close />
               </IconButton>
             </Box>
@@ -153,7 +155,7 @@ export const LoginPage: React.FC<{}> = () => {
                 fullWidth
                 variant="outlined"
                 sx={{ mb: 2 }}
-                href="signup"
+                onClick={() => navigate('/signup')}
                 size="large"
               >
                 Sign up
@@ -162,6 +164,7 @@ export const LoginPage: React.FC<{}> = () => {
 
               <Link
                 sx={{ width: '100%', mb: 1, mr: 'auto' }}
+                sx={{ width: '100%', mb: 1, mr: 'auto', cursor: 'pointer' }}
                 href="/forgot-password"
                 underline="hover"
               >
