@@ -22,11 +22,11 @@ import {
   Visibility,
   VisibilityOff,
 } from '@mui/icons-material';
-import { useNotification } from '../../context/notification.context';
 import { LoginValidate } from '../../utils/validateForm';
 import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
-import { auth } from '../../api/auth.api';
+import { useAppDispatch } from '../../redux/hooks';
+import { authThunk } from '../../redux/thunks/auth.thunk';
 
 type LoginType = {
   userIdentifier: string;
@@ -37,10 +37,9 @@ type LoginType = {
 export const LoginPage: React.FC<{}> = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = React.useState(false);
+  const dispatch = useAppDispatch();
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
-
-  const { getError } = useNotification();
 
   const formik = useFormik<LoginType>({
     initialValues: {
@@ -52,12 +51,10 @@ export const LoginPage: React.FC<{}> = () => {
     onSubmit: async (values) => {
       const { remember, ...userData } = values;
 
-      try {
-        const response = await auth.login(userData);
-        // TODO: FINISH LOG IN
-      } catch (error) {
-        getError((error as Error).message);
-      }
+      await dispatch(authThunk(userData));
+      navigate('/');
+
+      // TODO: FINISH LOG IN
     },
   });
 
