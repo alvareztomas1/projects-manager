@@ -1,26 +1,33 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { authThunk } from '../thunks/auth.thunk';
 import { RejectedActionFromAsyncThunk } from '@reduxjs/toolkit/dist/matchers';
-import { userData } from '../../types/user.type';
+import { getCookie } from '../../utils/cookies';
+import {
+  getAccessTokenByCookie,
+  getIsAuthByCookie,
+  getIsExpiredByCookie,
+  getUserDataByCookie,
+} from '../../utils/authState';
+import { IAccesstokenCookie } from '../../interfaces/cookies.interface';
 
 interface IAuthState {
   isAuth: boolean;
   success: boolean;
   error: RejectedActionFromAsyncThunk<any> | null;
   loading: boolean;
-  userData: userData | null;
+  userData: IAccesstokenCookie | null;
   accessToken: string | null;
   isExpired: boolean | null;
 }
 
 const initialState: IAuthState = {
-  isAuth: false,
-  success: false,
+  isAuth: getIsAuthByCookie(),
+  success: getCookie('accessToken') !== undefined,
   error: null,
   loading: false,
-  userData: null,
-  accessToken: null,
-  isExpired: null,
+  userData: getUserDataByCookie() || null,
+  accessToken: getAccessTokenByCookie() || null,
+  isExpired: getIsExpiredByCookie(),
 };
 
 export const authSlice = createSlice({
