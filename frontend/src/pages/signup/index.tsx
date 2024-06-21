@@ -13,51 +13,11 @@ import {
   Typography,
 } from '@mui/material';
 import { themePalette } from '../../config/theme.config';
-import { Close, Login, Visibility, VisibilityOff } from '@mui/icons-material';
-import { useNavigate } from 'react-router-dom';
-import { useNotification } from '../../context/notification.context';
-import { users } from '../../api/users.api';
-import { useFormik } from 'formik';
-import { SignUpValidate } from '../../utils/validateForm';
-
-type SignUpDataType = {
-  username: string;
-  email: string;
-  firstName: string;
-  lastName: string;
-  password: string;
-  confirmPassword: string;
-};
+import { Login, Visibility, VisibilityOff } from '@mui/icons-material';
+import { useSignup } from '../../hooks';
 
 export const SignupPage: React.FC<{}> = () => {
-  const navigate = useNavigate();
-  const { getError } = useNotification();
-
-  const formik = useFormik<SignUpDataType>({
-    initialValues: {
-      username: '',
-      firstName: '',
-      lastName: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
-    },
-    validationSchema: SignUpValidate,
-    onSubmit: async (values) => {
-      try {
-        const { confirmPassword, ...userData } = values;
-        const response = await users.create(userData);
-
-        navigate(`/signup-success/${response.username}`);
-      } catch (error) {
-        getError((error as Error).message);
-      }
-    },
-  });
-
-  const [showPassword, setShowPassword] = React.useState(false);
-
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const { showPassword, handleClickShowPassword, formik } = useSignup();
 
   return (
     <Container maxWidth="sm">
@@ -77,14 +37,9 @@ export const SignupPage: React.FC<{}> = () => {
             }}
             elevation={24}
           >
-            <Box display={'flex'} alignItems="center">
-              <Typography sx={{ mb: 1, mr: 'auto' }} variant="h4">
-                Sign up
-              </Typography>
-              <IconButton onClick={() => navigate('/')}>
-                <Close />
-              </IconButton>
-            </Box>
+            <Typography sx={{ mb: 1, mr: 'auto' }} variant="h4">
+              Sign up
+            </Typography>
 
             <Divider sx={{ mt: 1, mb: 2 }} />
 

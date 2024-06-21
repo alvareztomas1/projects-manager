@@ -9,24 +9,10 @@ import {
 } from '@mui/material';
 import React from 'react';
 import { themePalette } from '../config/theme.config';
-import { useNavigate } from 'react-router-dom';
-import { useAppDispatch } from '../redux/hooks';
-import { logout } from '../redux/slices/auth.slice';
-import { useCookies } from 'react-cookie';
-import COOKIE_NAMES from '../constants/cookie';
+import { useNavBar } from '../hooks';
 
 export const NavBar: React.FC<{}> = () => {
-  const [cookies, setCookie, removeCookie] = useCookies([
-    COOKIE_NAMES.ACCESS_TOKEN,
-  ]);
-  const navigate = useNavigate();
-  const dispatch = useAppDispatch();
-
-  const handleLogout = () => {
-    removeCookie(COOKIE_NAMES.ACCESS_TOKEN, cookies.accessToken);
-    dispatch(logout());
-    navigate('/login');
-  };
+  const { handleLogout } = useNavBar();
 
   return (
     <Box sx={{ flexGrow: 1 }}>

@@ -17,41 +17,12 @@ import {
 } from '@mui/material';
 import { themePalette } from '../../config/theme.config';
 import { LockOutlined, Visibility, VisibilityOff } from '@mui/icons-material';
-import { LoginValidate } from '../../utils/validateForm';
-import { useNavigate } from 'react-router-dom';
-import { useFormik } from 'formik';
-import { useAppDispatch } from '../../redux/hooks';
-import { authThunk } from '../../redux/thunks/auth.thunk';
 
-type LoginType = {
-  userIdentifier: string;
-  password: string;
-  remember: boolean;
-};
+import { useLogin } from '../../hooks';
 
 export const LoginPage: React.FC<{}> = () => {
-  const navigate = useNavigate();
-  const [showPassword, setShowPassword] = React.useState(false);
-  const dispatch = useAppDispatch();
-
-  const handleClickShowPassword = () => setShowPassword((show) => !show);
-
-  const formik = useFormik<LoginType>({
-    initialValues: {
-      userIdentifier: '',
-      password: '',
-      remember: false,
-    },
-    validationSchema: LoginValidate,
-    onSubmit: async (values) => {
-      const { remember, ...userData } = values;
-
-      await dispatch(authThunk(userData));
-      navigate('/');
-
-      // TODO: FINISH LOG IN
-    },
-  });
+  const { formik, showPassword, handleClickShowPassword, handleSignUpButton } =
+    useLogin();
 
   return (
     <Container maxWidth="sm">
@@ -84,7 +55,7 @@ export const LoginPage: React.FC<{}> = () => {
               </Grid>
             </Grid>
 
-            <Typography variant="h4">Sign in</Typography>
+            <Typography variant="h4">Log in</Typography>
 
             <Divider sx={{ mt: 1 }} />
 
@@ -162,7 +133,7 @@ export const LoginPage: React.FC<{}> = () => {
                 fullWidth
                 variant="outlined"
                 sx={{ mb: 2 }}
-                onClick={() => navigate('/signup')}
+                onClick={handleSignUpButton}
                 size="large"
               >
                 Sign up
