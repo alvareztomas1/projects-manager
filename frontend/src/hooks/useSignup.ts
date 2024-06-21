@@ -4,15 +4,7 @@ import { useNotification } from '../context/notification.context';
 import { useFormik } from 'formik';
 import { SignUpValidate } from '../utils/validateForm';
 import { users } from '../api/users.api';
-
-type SignUpDataType = {
-  username: string;
-  email: string;
-  firstName: string;
-  lastName: string;
-  password: string;
-  confirmPassword: string;
-};
+import { SignUpDataType } from '../types/signup.type';
 
 function useSingup() {
   const navigate = useNavigate();

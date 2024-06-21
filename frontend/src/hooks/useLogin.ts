@@ -4,12 +4,7 @@ import { useAppDispatch } from '../redux/hooks';
 import { useFormik } from 'formik';
 import { LoginValidate } from '../utils/validateForm';
 import { authThunk } from '../redux/thunks/auth.thunk';
-
-type LoginType = {
-  userIdentifier: string;
-  password: string;
-  remember: boolean;
-};
+import { LoginType } from '../types/login.type';
 
 function useLogin() {
   const navigate = useNavigate();
