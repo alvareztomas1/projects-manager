@@ -16,12 +16,7 @@ import {
   Typography,
 } from '@mui/material';
 import { themePalette } from '../../config/theme.config';
-import {
-  Close,
-  LockOutlined,
-  Visibility,
-  VisibilityOff,
-} from '@mui/icons-material';
+import { LockOutlined, Visibility, VisibilityOff } from '@mui/icons-material';
 import { LoginValidate } from '../../utils/validateForm';
 import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
@@ -76,14 +71,18 @@ export const LoginPage: React.FC<{}> = () => {
             }}
             elevation={24}
           >
-            <Box display={'flex'} alignItems="center">
-              <Avatar sx={{ mb: 1, mr: 'auto', bgcolor: 'secondary.main' }}>
-                <LockOutlined />
-              </Avatar>
-              <IconButton onClick={() => navigate('/')}>
-                <Close />
-              </IconButton>
-            </Box>
+            <Grid
+              direction={'column'}
+              container
+              display={'flex'}
+              alignItems="center"
+            >
+              <Grid item>
+                <Avatar sx={{ mb: 1, mr: 'auto', bgcolor: 'secondary.main' }}>
+                  <LockOutlined />
+                </Avatar>
+              </Grid>
+            </Grid>
 
             <Typography variant="h4">Sign in</Typography>
 
