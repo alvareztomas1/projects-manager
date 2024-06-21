@@ -8,14 +8,14 @@ import {
   getIsExpiredByCookie,
   getUserDataByCookie,
 } from '../../utils/authState';
-import { IAccesstokenCookie } from '../../interfaces/cookies.interface';
+import { IAccessTokenCookie } from '../../interfaces/cookies.interface';
 
 interface IAuthState {
   isAuth: boolean;
   success: boolean;
   error: RejectedActionFromAsyncThunk<any> | null;
   loading: boolean;
-  userData: IAccesstokenCookie | null;
+  userData: IAccessTokenCookie | null;
   accessToken: string | null;
   isExpired: boolean | null;
 }

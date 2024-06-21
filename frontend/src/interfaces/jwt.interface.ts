@@ -4,8 +4,3 @@ export interface IJwtToken {
   iat: number;
   exp: number;
 }
-
-export interface ICookie {
-  username: string;
-  id: string;
-}
