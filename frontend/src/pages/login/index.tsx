@@ -19,12 +19,17 @@ import { themePalette } from '../../config/theme.config';
 import { LockOutlined, Visibility, VisibilityOff } from '@mui/icons-material';
 
 import { useLogin } from '../../hooks';
+import { useAppSelector } from '../../redux/hooks';
+import { Navigate } from 'react-router-dom';
 
 export const LoginPage: React.FC<{}> = () => {
   const { formik, showPassword, handleClickShowPassword, handleSignUpButton } =
     useLogin();
+  const { isAuth } = useAppSelector((state) => state.authReducer);
 
-  return (
+  return isAuth ? (
+    <Navigate to="/" />
+  ) : (
     <Container maxWidth="sm">
       <Grid
         container
