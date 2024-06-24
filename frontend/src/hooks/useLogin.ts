@@ -16,18 +16,26 @@ function useLogin() {
 
   const formik = useFormik<LoginType>({
     initialValues: {
-      userIdentifier: '',
+      userIdentifier: localStorage.getItem('remember') || '',
       password: '',
       remember: false,
     },
     validationSchema: LoginValidate,
     onSubmit: async (values) => {
       const { remember, ...userData } = values;
+      const loginState = await dispatch(authThunk(userData));
 
-      await dispatch(authThunk(userData));
+      if (loginState.meta.requestStatus === 'fulfilled') {
+        if (remember) {
+          localStorage.setItem('remember', userData.userIdentifier);
+        } else {
+          localStorage.removeItem('remember');
+        }
+      } else {
+        localStorage.removeItem('remember');
+      }
+
       navigate('/');
-
-      // TODO: FINISH LOG IN
     },
   });
 
