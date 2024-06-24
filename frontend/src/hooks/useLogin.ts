@@ -5,8 +5,9 @@ import { useFormik } from 'formik';
 import { LoginValidate } from '../utils/validateForm';
 import { authThunk } from '../redux/thunks/auth.thunk';
 import { LoginType } from '../types/login.type';
+import { IUseLoginHook } from '../interfaces/custom.hooks.interface';
 
-function useLogin() {
+function useLogin(): IUseLoginHook {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = React.useState(false);
   const dispatch = useAppDispatch();

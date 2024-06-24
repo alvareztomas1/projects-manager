@@ -5,8 +5,9 @@ import { useFormik } from 'formik';
 import { SignUpValidate } from '../utils/validateForm';
 import { users } from '../api/users.api';
 import { SignUpDataType } from '../types/signup.type';
+import { IUseSignupHook } from '../interfaces/custom.hooks.interface';
 
-function useSingup() {
+function useSingup(): IUseSignupHook {
   const navigate = useNavigate();
   const { getError } = useNotification();
 
