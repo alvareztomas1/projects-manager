@@ -11,15 +11,36 @@ import {
 import { useHomePage } from '../../hooks';
 import { ROLES } from '../../constants/roles';
 import { themePalette } from '../../config/theme.config';
+import { Project } from '../../components';
 
 export const HomePage: React.FC<{}> = () => {
-  const { user, loading, projects } = useHomePage();
+  const { user, loading, projects, expanded, handleAccordionChange } =
+    useHomePage();
   const projectsList = projects?.map((userProject, index) => {
-    return <>{/*TODO: SHOW PROJECTS*/}</>;
+    return (
+      <div key={`project-${userProject.id}`}>
+        <Project
+          accessLevel={userProject.accessLevel}
+          handleAccordionChange={handleAccordionChange}
+          expanded={expanded}
+          id={userProject.project.id}
+          title={userProject.project.title}
+          description={userProject.project.description}
+        />
+      </div>
+    );
   });
 
   return (
-    <Container sx={{ mt: 9 }} maxWidth="md">
+    <Container
+      sx={{
+        p: 5,
+        mt: 5,
+        backgroundColor: themePalette.BG_2,
+        borderRadius: '5px',
+      }}
+      maxWidth="md"
+    >
       {loading ? (
         <Box sx={{ display: 'flex', justifyContent: 'center' }}>
           <CircularProgress />
@@ -82,4 +103,3 @@ export const HomePage: React.FC<{}> = () => {
     </Container>
   );
 };
-
