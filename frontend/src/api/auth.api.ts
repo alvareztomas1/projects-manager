@@ -1,10 +1,10 @@
-import { userLoginData } from '../types/user.type';
+import { UserLoginData } from '../types/user.type';
 import { BASE_URL } from './base.api';
 
 const endpoint = 'auth';
 
 export const auth = {
-  login: async (data: userLoginData) => {
+  login: async (data: UserLoginData) => {
     try {
       const response = await fetch(`${BASE_URL}${endpoint}/login`, {
         method: 'POST',

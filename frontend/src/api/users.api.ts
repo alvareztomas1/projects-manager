@@ -1,10 +1,10 @@
 import { BASE_URL } from './base.api';
-import { userSignUpData } from '../types/user.type';
+import { UserSignUpData } from '../types/user.type';
 
 const endpoint = 'users';
 
 export const users = {
-  create: async (data: userSignUpData) => {
+  create: async (data: UserSignUpData) => {
     try {
       const response = await fetch(`${BASE_URL}${endpoint}/create`, {
         method: 'POST',
@@ -24,7 +24,7 @@ export const users = {
       throw error;
     }
   },
-  update: async (data: userSignUpData, id: string) => {
+  update: async (data: UserSignUpData, id: string) => {
     try {
       const response = await fetch(`${BASE_URL}${endpoint}/update/${id}`, {
         method: 'POST',

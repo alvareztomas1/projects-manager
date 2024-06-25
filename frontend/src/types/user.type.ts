@@ -1,4 +1,5 @@
-export type userSignUpData = {
+
+export type UserSignUpData = {
   username: string;
   email: string;
   password: string;
@@ -6,12 +7,12 @@ export type userSignUpData = {
   lastName: string;
 };
 
-export type userLoginData = {
+export type UserLoginData = {
   userIdentifier: string;
   password: string;
 };
 
-export type userData = {
+export type UserData = {
   username: string;
   email: string;
   password: string;
