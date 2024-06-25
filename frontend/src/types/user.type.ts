@@ -1,4 +1,5 @@
 import { ACCESS_LEVEL } from '../constants/access-levels';
+import { ROLES } from '../constants/roles';
 import { ProjectData } from './project.type';
 import { TaskData } from './task.type';
 
@@ -24,6 +25,7 @@ export type UserData = {
   password: string;
   firstName: string;
   lastName: string;
+  role: ROLES;
   projectsIncluded: UserProjectData[];
   tasksIncluded: UserTask[];
 };
