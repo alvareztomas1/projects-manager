@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { authThunk } from '../thunks/auth.thunk';
-import { RejectedActionFromAsyncThunk } from '@reduxjs/toolkit/dist/matchers';
 import { getCookie } from '../../utils/cookies';
 import {
   getAccessTokenByCookie,
@@ -8,17 +7,7 @@ import {
   getIsExpiredByCookie,
   getUserDataByCookie,
 } from '../../utils/authState';
-import { IAccessTokenCookie } from '../../interfaces/cookies.interface';
-
-interface IAuthState {
-  isAuth: boolean;
-  success: boolean;
-  error: RejectedActionFromAsyncThunk<any> | null;
-  loading: boolean;
-  userData: IAccessTokenCookie | null;
-  accessToken: string | null;
-  isExpired: boolean | null;
-}
+import { IAuthState } from '../../interfaces/redux.states.interface';
 
 const initialState: IAuthState = {
   isAuth: getIsAuthByCookie(),
