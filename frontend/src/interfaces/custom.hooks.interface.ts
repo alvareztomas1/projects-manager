@@ -1,6 +1,7 @@
 import { useFormik } from 'formik';
 import { LoginType } from '../types/login.type';
 import { SignUpDataType } from '../types/signup.type';
+import { UserData, UserProjectData } from '../types/user.type';
 
 export interface IUseLoginHook {
   formik: ReturnType<typeof useFormik<LoginType>>;
@@ -17,4 +18,14 @@ export interface IUseSignupHook {
 
 export interface IUseNavBarHook {
   handleLogout: () => void;
+}
+
+export interface IUseHomeHook {
+  user: UserData | null;
+  projects: UserProjectData[];
+  loading: boolean;
+  expanded: string | false;
+  handleAccordionChange: (
+    panel: string,
+  ) => (event: React.SyntheticEvent, isExpanded: boolean) => void;
 }
