@@ -1,6 +1,7 @@
 import React from 'react';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { getUserThunk } from '../redux/thunks/getUser.thunk';
+import { useNotification } from '../context/notification.context';
 
 const useHomePage = () => {
   const { userData, accessToken } = useAppSelector(
@@ -9,15 +10,24 @@ const useHomePage = () => {
   const { user, loading } = useAppSelector((state) => state.getUserReducer);
   const dispatch = useAppDispatch();
   const [expanded, setExpanded] = React.useState<string | false>(false);
+  const { getError } = useNotification();
 
   React.useEffect(() => {
-    dispatch(
-      getUserThunk({
-        userId: userData!.id,
-        accessToken: accessToken!,
-      }),
-    );
-  }, [dispatch, accessToken, userData]);
+    const getUserData = async () => {
+      const response = await dispatch(
+        getUserThunk({
+          userId: userData!.id,
+          accessToken: accessToken!,
+        }),
+      );
+
+      if (response.meta.requestStatus === 'rejected') {
+        getError(response.payload);
+      }
+    };
+
+    getUserData();
+  }, [dispatch, accessToken, userData, getError]);
 
   const handleAccordionChange =
     (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
