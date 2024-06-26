@@ -11,7 +11,7 @@ import {
 import { useHomePage } from '../../hooks';
 import { ROLES } from '../../constants/roles';
 import { themePalette } from '../../config/theme.config';
-import { Project } from '../../components';
+import { ProjectListElement } from '../../components';
 
 export const HomePage: React.FC<{}> = () => {
   const { user, loading, projects, expanded, handleAccordionChange } =
@@ -19,7 +19,7 @@ export const HomePage: React.FC<{}> = () => {
   const projectsList = projects?.map((userProject, index) => {
     return (
       <div key={`project-${userProject.id}`}>
-        <Project
+        <ProjectListElement
           accessLevel={userProject.accessLevel}
           handleAccordionChange={handleAccordionChange}
           expanded={expanded}

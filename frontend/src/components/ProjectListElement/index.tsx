@@ -10,7 +10,6 @@ import {
   Popover,
   Chip,
   Box,
-  Grid,
 } from '@mui/material';
 import { Add, Delete, Edit, Info } from '@mui/icons-material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -28,7 +27,7 @@ export type ProjectProps = {
   ) => (event: React.SyntheticEvent, isExpanded: boolean) => void;
 };
 
-export const Project: React.FC<ProjectProps> = ({
+export const ProjectListElement: React.FC<ProjectProps> = ({
   id,
   title,
   description,
