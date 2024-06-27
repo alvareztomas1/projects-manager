@@ -58,7 +58,10 @@ export const HomePage: React.FC<{}> = () => {
           <Divider sx={{ m: 2 }} />
           {projects?.length ? (
             <>
-              <Typography variant="h4">
+              <Box sx={{ m: 1 }} display={'flex'} justifyContent={'center'}>
+                <CreateProjectModal />
+              </Box>
+              <Typography variant="subtitle1">
                 Here is a list of your current projects
               </Typography>
               {projectsList}

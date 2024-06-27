@@ -61,3 +61,18 @@ export const SignUpValidate = yup.object().shape({
     .required('Confirm password field is required')
     .oneOf([yup.ref('password')], 'Passwords must match'),
 });
+
+export const CreateProjectValidate = yup.object().shape({
+  title: yup
+    .string()
+    .trim()
+    .required('Title is required')
+    .min(5, 'Title must be at least 5 characters')
+    .max(50, 'Title must be max 50 characters'),
+  description: yup
+    .string()
+    .trim()
+    .required('Description is required')
+    .min(10, 'Description must be at least 10 characters')
+    .max(500, 'Description must be max 500 characters'),
+});

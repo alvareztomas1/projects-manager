@@ -29,3 +29,10 @@ export interface IUseHomeHook {
     panel: string,
   ) => (event: React.SyntheticEvent, isExpanded: boolean) => void;
 }
+
+export interface IUseCreateProjectHook {
+  open: boolean;
+  formik: ReturnType<typeof useFormik<CreateProjectType>>;
+  handleOpen: () => void;
+  handleClose: () => void;
+}
