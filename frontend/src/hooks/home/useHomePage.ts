@@ -1,8 +1,8 @@
 import React from 'react';
-import { useAppDispatch, useAppSelector } from '../redux/hooks';
-import { getUserThunk } from '../redux/thunks/getUser.thunk';
-import { useNotification } from '../context/notification.context';
-import { IUseHomeHook } from '../interfaces/custom.hooks.interface';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { getUserThunk } from '../../redux/thunks/getUser.thunk';
+import { useNotification } from '../../context/notification.context';
+import { IUseHomeHook } from '../../interfaces/custom.hooks.interface';
 
 const useHomePage = (): IUseHomeHook => {
   const { userData, accessToken } = useAppSelector(
@@ -35,7 +35,7 @@ const useHomePage = (): IUseHomeHook => {
       setExpanded(isExpanded ? panel : false);
     };
 
-  const projects = user!.projectsIncluded;
+  const projects = user?.projectsIncluded;
 
   return { user, projects, loading, expanded, handleAccordionChange };
 };

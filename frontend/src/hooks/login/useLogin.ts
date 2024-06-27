@@ -1,12 +1,12 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch } from '../redux/hooks';
+import { useAppDispatch } from '../../redux/hooks';
 import { useFormik } from 'formik';
-import { LoginValidate } from '../utils/validateForm';
-import { authThunk } from '../redux/thunks/auth.thunk';
-import { LoginType } from '../types/login.type';
-import { IUseLoginHook } from '../interfaces/custom.hooks.interface';
-import { useNotification } from '../context/notification.context';
+import { LoginValidate } from '../../utils/validateForm';
+import { authThunk } from '../../redux/thunks/auth.thunk';
+import { LoginType } from '../../types/login.type';
+import { IUseLoginHook } from '../../interfaces/custom.hooks.interface';
+import { useNotification } from '../../context/notification.context';
 
 function useLogin(): IUseLoginHook {
   const navigate = useNavigate();

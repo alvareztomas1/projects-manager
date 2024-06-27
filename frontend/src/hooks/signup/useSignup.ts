@@ -1,11 +1,11 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useNotification } from '../context/notification.context';
+import { useNotification } from '../../context/notification.context';
 import { useFormik } from 'formik';
-import { SignUpValidate } from '../utils/validateForm';
-import { users } from '../api/users.api';
-import { SignUpDataType } from '../types/signup.type';
-import { IUseSignupHook } from '../interfaces/custom.hooks.interface';
+import { SignUpValidate } from '../../utils/validateForm';
+import { users } from '../../api/users.api';
+import { SignUpDataType } from '../../types/signup.type';
+import { IUseSignupHook } from '../../interfaces/custom.hooks.interface';
 
 function useSingup(): IUseSignupHook {
   const navigate = useNavigate();
