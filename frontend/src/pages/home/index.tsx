@@ -1,22 +1,24 @@
 import React from 'react';
 import {
   Box,
-  Chip,
   CircularProgress,
   Container,
   Divider,
-  Paper,
   Typography,
 } from '@mui/material';
 import { useHomePage } from '../../hooks';
-import { ROLES } from '../../constants/roles';
 import { themePalette } from '../../config/theme.config';
-import { ProjectListElement } from '../../components';
+import {
+  CreateProjectModal,
+  NoProjectsMessage,
+  ProjectListElement,
+} from '../../components';
 
 export const HomePage: React.FC<{}> = () => {
   const { user, loading, projects, expanded, handleAccordionChange } =
     useHomePage();
-  const projectsList = projects?.map((userProject, index) => {
+
+  const renderProjectsList = projects?.map((userProject, index) => {
     return (
       <div key={`project-${userProject.id}`}>
         <ProjectListElement
@@ -64,42 +66,10 @@ export const HomePage: React.FC<{}> = () => {
               <Typography variant="subtitle1">
                 Here is a list of your current projects
               </Typography>
-              {projectsList}
+              {renderProjectsList}
             </>
           ) : (
-            <>
-              <Paper
-                sx={{
-                  backgroundColor: themePalette.BG_2,
-                  padding: 3,
-                  borderRadius: '10px',
-                }}
-                elevation={24}
-              >
-                <Typography
-                  sx={{ display: 'flex', justifyContent: 'center' }}
-                  mb={1}
-                  variant="h5"
-                >
-                  You dont belong to any project!
-                </Typography>
-                {user!.role === ROLES.BASIC ? (
-                  <Typography variant="h6">
-                    Currently you have a{'  '}
-                    <Chip
-                      variant="outlined"
-                      label={'BASIC'}
-                      color={'secondary'}
-                    />
-                    {'  '}
-                    role, meaning that you cant create projects! Please wait
-                    until someone incorpores you to one
-                  </Typography>
-                ) : (
-                  <Typography variant="h5">Create a project</Typography>
-                )}
-              </Paper>
-            </>
+            <NoProjectsMessage userRole={user!.role} />
           )}
         </>
       )}
