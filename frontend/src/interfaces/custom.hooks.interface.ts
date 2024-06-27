@@ -22,7 +22,7 @@ export interface IUseNavBarHook {
 
 export interface IUseHomeHook {
   user: UserData | null;
-  projects: UserProjectData[];
+  projects: UserProjectData[] | undefined;
   loading: boolean;
   expanded: string | false;
   handleAccordionChange: (

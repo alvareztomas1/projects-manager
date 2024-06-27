@@ -16,7 +16,7 @@ import { ProjectListElement } from '../../components';
 export const HomePage: React.FC<{}> = () => {
   const { user, loading, projects, expanded, handleAccordionChange } =
     useHomePage();
-  const projectsList = projects.map((userProject, index) => {
+  const projectsList = projects?.map((userProject, index) => {
     return (
       <div key={`project-${userProject.id}`}>
         <ProjectListElement
@@ -56,7 +56,7 @@ export const HomePage: React.FC<{}> = () => {
             {user!.lastName.charAt(0).toUpperCase() + user!.lastName.slice(1)}
           </Typography>
           <Divider sx={{ m: 2 }} />
-          {projects.length ? (
+          {projects?.length ? (
             <>
               <Typography variant="h4">
                 Here is a list of your current projects
@@ -90,7 +90,7 @@ export const HomePage: React.FC<{}> = () => {
                     />
                     {'  '}
                     role, meaning that you cant create projects! Please wait
-                    until someone incorpores you
+                    until someone incorpores you to one
                   </Typography>
                 ) : (
                   <Typography variant="h5">Create a project</Typography>
