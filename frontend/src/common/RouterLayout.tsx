@@ -12,13 +12,13 @@ export const RouterLayout: React.FC<{}> = () => {
   const { isAuth, accessToken, isExpired } = useAppSelector(
     (state) => state.authReducer,
   );
-
   React.useEffect(() => {
-    if (accessToken) setCookie(COOKIE_NAMES.ACCESS_TOKEN, accessToken);
+    if (accessToken)
+      setCookie(COOKIE_NAMES.ACCESS_TOKEN, accessToken, { path: '/' });
   }, [accessToken, setCookie]);
 
   React.useEffect(() => {
-    if (isExpired) removeCookie(COOKIE_NAMES.ACCESS_TOKEN, cookies.accessToken);
+    if (isExpired) removeCookie(COOKIE_NAMES.ACCESS_TOKEN, { path: '/' });
   }, [isExpired, removeCookie, cookies.accessToken]);
 
   return isAuth ? (
