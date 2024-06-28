@@ -74,5 +74,5 @@ export const CreateProjectValidate = yup.object().shape({
     .trim()
     .required('Description is required')
     .min(10, 'Description must be at least 10 characters')
-    .max(500, 'Description must be max 500 characters'),
+    .max(255, 'Description must be max 255 characters'),
 });
