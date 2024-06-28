@@ -28,7 +28,7 @@ const useHomePage = (): IUseHomeHook => {
     };
 
     getUserData();
-  }, [dispatch, accessToken, userData, getError]);
+  }, [dispatch, accessToken, userData]);
 
   const handleAccordionChange =
     (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
