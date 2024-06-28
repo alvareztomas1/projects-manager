@@ -7,6 +7,14 @@ const useProjectsList = (): IUseProjectsListHook => {
   const [anchorDelete, setAnchorDelete] = React.useState<HTMLElement | null>(
     null,
   );
+  const [modalOpen, setModalOpen] = React.useState(false);
+
+  const handleModalOpen = () => {
+    setModalOpen(true);
+  };
+  const handleModalClose = () => {
+    setModalOpen(false);
+  };
 
   const handlePopoverOpen = (
     event: React.MouseEvent<HTMLElement> | React.FocusEvent<HTMLElement>,
@@ -35,6 +43,9 @@ const useProjectsList = (): IUseProjectsListHook => {
   const openDeletePopover = Boolean(anchorDelete);
 
   return {
+    modalOpen,
+    handleModalOpen,
+    handleModalClose,
     anchorAdd,
     anchorEdit,
     anchorDelete,

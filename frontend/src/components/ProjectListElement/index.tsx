@@ -15,6 +15,7 @@ import { Add, Delete, Edit, Info } from '@mui/icons-material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { themePalette } from '../../config/theme.config';
 import { ACCESS_LEVEL } from '../../constants/access-levels';
+import { DeleteModal } from '../DeleteModal';
 import { useProjectsList } from '../../hooks';
 
 export type ProjectProps = {
@@ -37,6 +38,9 @@ export const ProjectListElement: React.FC<ProjectProps> = ({
   handleAccordionChange,
 }) => {
   const {
+    modalOpen,
+    handleModalClose,
+    handleModalOpen,
     anchorAdd,
     anchorEdit,
     anchorDelete,
@@ -189,6 +193,12 @@ export const ProjectListElement: React.FC<ProjectProps> = ({
               >
                 <Typography sx={{ p: 1 }}>Delete project</Typography>
               </Popover>
+              <DeleteModal
+                msg="¿Sure you want to delete this project?"
+                open={modalOpen}
+                handleClose={() => handleModalClose()}
+                id={id}
+              />
             </>
           )}
         </ButtonGroup>

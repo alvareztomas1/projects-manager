@@ -38,6 +38,9 @@ export interface IUseCreateProjectHook {
   handleClose: () => void;
 }
 export interface IUseProjectsListHook {
+  modalOpen: boolean;
+  handleModalOpen: () => void;
+  handleModalClose: () => void;
   anchorAdd: HTMLElement | null;
   anchorEdit: HTMLElement | null;
   anchorDelete: HTMLElement | null;
