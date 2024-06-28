@@ -1,3 +1,4 @@
+import { CreateProjectType } from '../types/project.type';
 import { BASE_URL } from './base.api';
 
 const endpoint = 'projects';
@@ -12,6 +13,32 @@ export const projects = {
           access_token: accessToken,
           'Content-Type': 'application/json',
         },
+      });
+      const responseJSON = await response.json();
+
+      if (!response.ok) {
+        throw new Error((responseJSON as Error).message);
+      }
+
+      return responseJSON;
+    } catch (error) {
+      throw error;
+    }
+  },
+  create: async (
+    userId: string,
+    body: CreateProjectType,
+    accessToken: string,
+  ) => {
+    try {
+      const response = await fetch(`${BASE_URL}${endpoint}/create/${userId}`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          access_token: accessToken,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(body),
       });
       const responseJSON = await response.json();
 

@@ -9,6 +9,7 @@ import {
 } from '@mui/material';
 import { themePalette } from '../../config/theme.config';
 import { useCreateProject } from '../../hooks';
+import { LoadingButton } from '@mui/lab';
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -24,7 +25,7 @@ const style = {
 };
 
 export const CreateProjectModal: React.FC = () => {
-  const { formik, open, handleClose, handleOpen } = useCreateProject();
+  const { formik, open, handleClose, handleOpen, loading } = useCreateProject();
 
   return (
     <React.Fragment>
@@ -89,15 +90,16 @@ export const CreateProjectModal: React.FC = () => {
             }
             helperText={formik.touched.description && formik.errors.description}
           />
-          <Button
+          <LoadingButton
             sx={{ mt: 1, letterSpacing: '-0.02rem' }}
             fullWidth
             variant="contained"
             size="large"
+            loading={loading}
             onClick={formik.submitForm}
           >
             CREATE
-          </Button>
+          </LoadingButton>
           <Button
             onClick={handleClose}
             sx={{ mt: 1, letterSpacing: '-0.02rem', fontWeight: 'bold' }}

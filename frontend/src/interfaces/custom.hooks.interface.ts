@@ -32,6 +32,7 @@ export interface IUseHomeHook {
 
 export interface IUseCreateProjectHook {
   open: boolean;
+  loading: boolean;
   formik: ReturnType<typeof useFormik<CreateProjectType>>;
   handleOpen: () => void;
   handleClose: () => void;
