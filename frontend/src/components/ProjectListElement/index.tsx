@@ -15,6 +15,7 @@ import { Add, Delete, Edit, Info } from '@mui/icons-material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { themePalette } from '../../config/theme.config';
 import { ACCESS_LEVEL } from '../../constants/access-levels';
+import { useProjectsList } from '../../hooks';
 
 export type ProjectProps = {
   id: string;
@@ -35,38 +36,16 @@ export const ProjectListElement: React.FC<ProjectProps> = ({
   expanded,
   handleAccordionChange,
 }) => {
-  const [anchorAdd, setAnchorAdd] = React.useState<HTMLElement | null>(null);
-  const [anchorEdit, setAnchorEdit] = React.useState<HTMLElement | null>(null);
-  const [anchorDelete, setAnchorDelete] = React.useState<HTMLElement | null>(
-    null,
-  );
-
-  const handlePopoverOpen = (
-    event: React.MouseEvent<HTMLElement> | React.FocusEvent<HTMLElement>,
-    type: 'add' | 'edit' | 'delete',
-  ) => {
-    if (type === 'add') {
-      setAnchorAdd(event.currentTarget);
-    } else if (type === 'edit') {
-      setAnchorEdit(event.currentTarget);
-    } else if (type === 'delete') {
-      setAnchorDelete(event.currentTarget);
-    }
-  };
-
-  const handlePopoverClose = (type: 'add' | 'edit' | 'delete') => {
-    if (type === 'add') {
-      setAnchorAdd(null);
-    } else if (type === 'edit') {
-      setAnchorEdit(null);
-    } else if (type === 'delete') {
-      setAnchorDelete(null);
-    }
-  };
-
-  const openAddPopover = Boolean(anchorAdd);
-  const openEditPopover = Boolean(anchorEdit);
-  const openDeletePopover = Boolean(anchorDelete);
+  const {
+    anchorAdd,
+    anchorEdit,
+    anchorDelete,
+    openAddPopover,
+    openDeletePopover,
+    openEditPopover,
+    handlePopoverOpen,
+    handlePopoverClose,
+  } = useProjectsList();
 
   return (
     <Accordion
@@ -81,7 +60,7 @@ export const ProjectListElement: React.FC<ProjectProps> = ({
       >
         <Box display={'flex'} sx={{ alignItems: 'center' }}>
           <Typography m={1} variant="h5">
-            {title}
+            {title.split('')[0].toUpperCase() + title.slice(1)}
           </Typography>
           <Chip
             size="small"
@@ -95,7 +74,9 @@ export const ProjectListElement: React.FC<ProjectProps> = ({
       </AccordionSummary>
 
       <AccordionDetails>
-        <Typography variant="h6">{description}</Typography>
+        <Typography variant="h6">
+          {description.split('')[0].toUpperCase() + description.slice(1)}
+        </Typography>
       </AccordionDetails>
 
       <AccordionActions>
@@ -104,10 +85,11 @@ export const ProjectListElement: React.FC<ProjectProps> = ({
           variant="text"
           aria-label="Basic button group"
         >
-          <Fab href={`/project/${id}`} variant="extended">
+          <Fab color="info" href={`/project/${id}`} variant="extended">
             <Info sx={{ mr: 1 }} />
             More info
           </Fab>
+
           {+accessLevel > ACCESS_LEVEL.BASIC && (
             <>
               <Fab
@@ -177,7 +159,7 @@ export const ProjectListElement: React.FC<ProjectProps> = ({
           {+accessLevel > ACCESS_LEVEL.MAINTAINER && (
             <>
               <Fab
-                color="warning"
+                color="error"
                 aria-label="delete"
                 aria-owns={
                   openDeletePopover ? 'mouse-over-popover-delete' : undefined
@@ -185,6 +167,7 @@ export const ProjectListElement: React.FC<ProjectProps> = ({
                 aria-haspopup="true"
                 onMouseEnter={(e) => handlePopoverOpen(e, 'delete')}
                 onMouseLeave={() => handlePopoverClose('delete')}
+                onClick={() => handleModalOpen()}
               >
                 <Delete />
               </Fab>

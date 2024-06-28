@@ -37,3 +37,16 @@ export interface IUseCreateProjectHook {
   handleOpen: () => void;
   handleClose: () => void;
 }
+export interface IUseProjectsListHook {
+  anchorAdd: HTMLElement | null;
+  anchorEdit: HTMLElement | null;
+  anchorDelete: HTMLElement | null;
+  openAddPopover: boolean;
+  openEditPopover: boolean;
+  openDeletePopover: boolean;
+  handlePopoverOpen: (
+    event: React.MouseEvent<HTMLElement> | React.FocusEvent<HTMLElement>,
+    type: 'add' | 'edit' | 'delete',
+  ) => void;
+  handlePopoverClose: (type: 'add' | 'edit' | 'delete') => void;
+}
