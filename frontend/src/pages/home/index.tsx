@@ -1,15 +1,16 @@
 import React from 'react';
 import {
   Box,
+  Button,
   CircularProgress,
   Container,
   Divider,
   Typography,
 } from '@mui/material';
-import { useHomePage } from '../../hooks';
+import { useCreateProject, useHomePage } from '../../hooks';
 import { themePalette } from '../../config/theme.config';
 import {
-  CreateProjectModal,
+  ProjectFormModal,
   NoProjectsMessage,
   ProjectListElement,
 } from '../../components';
@@ -17,6 +18,8 @@ import {
 export const HomePage: React.FC<{}> = () => {
   const { user, loading, projects, expanded, handleAccordionChange } =
     useHomePage();
+  const { formik, open, handleClose, handleOpen, loadingButton } =
+    useCreateProject();
 
   const renderProjectsList = projects?.map((userProject, index) => {
     return (
@@ -61,7 +64,21 @@ export const HomePage: React.FC<{}> = () => {
           {projects?.length ? (
             <>
               <Box sx={{ m: 1 }} display={'flex'} justifyContent={'center'}>
-                <CreateProjectModal />
+                <Button
+                  sx={{ letterSpacing: '-0.02rem', fontWeight: 'bold' }}
+                  variant="contained"
+                  onClick={handleOpen}
+                  size="large"
+                >
+                  {'CREATE A NEW PROJECT'}
+                </Button>
+                <ProjectFormModal
+                  formik={formik}
+                  msg={'CREATE A NEW PROJECT'}
+                  loadingButton={loadingButton}
+                  open={open}
+                  handleClose={() => handleClose()}
+                />
               </Box>
               <Typography variant="subtitle1">
                 Here is a list of your current projects

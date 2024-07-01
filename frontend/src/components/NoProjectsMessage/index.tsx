@@ -1,15 +1,19 @@
 import { Box, Chip, Paper, Typography } from '@mui/material';
 import { themePalette } from '../../config/theme.config';
 import { ROLES } from '../../constants/roles';
-import { CreateProjectModal } from '../CreateProjectModal';
+import { ProjectFormModal } from '../ProjectFormModal';
+import { useCreateProject } from '../../hooks';
 
-interface NoProjectMessageProps {
+type NoProjectMessageProps = {
   userRole: ROLES;
-}
+};
 
 export const NoProjectsMessage: React.FC<NoProjectMessageProps> = ({
   userRole,
 }) => {
+  const { formik, open, handleClose, handleOpen, loadingButton } =
+    useCreateProject();
+
   return (
     <>
       <Paper
@@ -37,7 +41,13 @@ export const NoProjectsMessage: React.FC<NoProjectMessageProps> = ({
           </Typography>
         ) : (
           <Box justifyContent={'center'} display="flex">
-            <CreateProjectModal />
+            <ProjectFormModal
+              formik={formik}
+              msg={'CREATE A NEW PROJECT'}
+              loadingButton={loadingButton}
+              open={open}
+              handleClose={() => handleClose()}
+            />{' '}
           </Box>
         )}
       </Paper>

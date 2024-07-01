@@ -1,6 +1,6 @@
 export { Notification } from './Notification';
 export { ProjectListElement } from './ProjectListElement';
 export { Percentage } from './Percentage';
-export { CreateProjectModal } from './CreateProjectModal';
+export { ProjectFormModal } from './ProjectFormModal';
 export { NoProjectsMessage } from './NoProjectsMessage';
 export { DeleteModal } from './DeleteModal';
