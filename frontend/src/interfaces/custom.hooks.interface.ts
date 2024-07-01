@@ -30,12 +30,13 @@ export interface IUseHomeHook {
   ) => (event: React.SyntheticEvent, isExpanded: boolean) => void;
 }
 
-export interface IUseCreateProjectHook {
-  open: boolean;
-  loading: boolean;
+export interface IUseSaveProjectHook {
+  SaveProjectModalOpen: boolean;
+  loadingConfirmSaveButton: boolean;
   formik: ReturnType<typeof useFormik<CreateProjectType>>;
-  handleOpen: () => void;
-  handleClose: () => void;
+  handleSaveProjectModalOpen: () => void;
+  handleSaveProjectModalClose: () => void;
+}
 }
 export interface IUseProjectsListHook {
   modalOpen: boolean;

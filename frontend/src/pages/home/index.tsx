@@ -7,7 +7,7 @@ import {
   Divider,
   Typography,
 } from '@mui/material';
-import { useCreateProject, useHomePage } from '../../hooks';
+import { useSaveProject, useHomePage } from '../../hooks';
 import { themePalette } from '../../config/theme.config';
 import {
   ProjectFormModal,
@@ -18,8 +18,13 @@ import {
 export const HomePage: React.FC<{}> = () => {
   const { user, loading, projects, expanded, handleAccordionChange } =
     useHomePage();
-  const { formik, open, handleClose, handleOpen, loadingButton } =
-    useCreateProject();
+  const {
+    formik,
+    SaveProjectModalOpen,
+    handleSaveProjectModalClose,
+    handleSaveProjectModalOpen,
+    loadingConfirmSaveButton,
+  } = useSaveProject();
 
   const renderProjectsList = projects?.map((userProject, index) => {
     return (
@@ -67,7 +72,7 @@ export const HomePage: React.FC<{}> = () => {
                 <Button
                   sx={{ letterSpacing: '-0.02rem', fontWeight: 'bold' }}
                   variant="contained"
-                  onClick={handleOpen}
+                  onClick={handleSaveProjectModalOpen}
                   size="large"
                 >
                   {'CREATE A NEW PROJECT'}
@@ -75,9 +80,9 @@ export const HomePage: React.FC<{}> = () => {
                 <ProjectFormModal
                   formik={formik}
                   msg={'CREATE A NEW PROJECT'}
-                  loadingButton={loadingButton}
-                  open={open}
-                  handleClose={() => handleClose()}
+                  loadingButton={loadingConfirmSaveButton}
+                  open={SaveProjectModalOpen}
+                  handleClose={() => handleSaveProjectModalClose()}
                 />
               </Box>
               <Typography variant="subtitle1">
