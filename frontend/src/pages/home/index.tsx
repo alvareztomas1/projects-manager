@@ -91,7 +91,14 @@ export const HomePage: React.FC<{}> = () => {
               {renderProjectsList}
             </>
           ) : (
-            <NoProjectsMessage userRole={user!.role} />
+            <NoProjectsMessage
+              loading={loadingConfirmSaveButton}
+              open={SaveProjectModalOpen}
+              formik={formik}
+              userRole={user!.role}
+              handleSaveProjectModalOpen={handleSaveProjectModalOpen}
+              handleSaveProjectModalClose={handleSaveProjectModalClose}
+            />
           )}
         </>
       )}

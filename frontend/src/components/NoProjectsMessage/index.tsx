@@ -1,19 +1,27 @@
-import { Box, Chip, Paper, Typography } from '@mui/material';
+import { Box, Button, Chip, Paper, Typography } from '@mui/material';
 import { themePalette } from '../../config/theme.config';
 import { ROLES } from '../../constants/roles';
 import { ProjectFormModal } from '../ProjectFormModal';
-import { useCreateProject } from '../../hooks';
+import { useFormik } from 'formik';
+import { CreateProjectType } from '../../types/project.type';
 
 type NoProjectMessageProps = {
   userRole: ROLES;
+  formik: ReturnType<typeof useFormik<CreateProjectType>>;
+  open: boolean;
+  handleSaveProjectModalOpen: () => void;
+  handleSaveProjectModalClose: () => void;
+  loading: boolean;
 };
 
 export const NoProjectsMessage: React.FC<NoProjectMessageProps> = ({
+  open,
   userRole,
+  formik,
+  handleSaveProjectModalOpen,
+  handleSaveProjectModalClose,
+  loading,
 }) => {
-  const { formik, open, handleClose, handleOpen, loadingButton } =
-    useCreateProject();
-
   return (
     <>
       <Paper
@@ -41,12 +49,20 @@ export const NoProjectsMessage: React.FC<NoProjectMessageProps> = ({
           </Typography>
         ) : (
           <Box justifyContent={'center'} display="flex">
+            <Button
+              sx={{ letterSpacing: '-0.02rem', fontWeight: 'bold' }}
+              variant="contained"
+              onClick={handleSaveProjectModalOpen}
+              size="large"
+            >
+              {'CREATE A NEW PROJECT'}
+            </Button>
             <ProjectFormModal
               formik={formik}
               msg={'CREATE A NEW PROJECT'}
-              loadingButton={loadingButton}
+              loadingButton={loading}
               open={open}
-              handleClose={() => handleClose()}
+              handleClose={() => handleSaveProjectModalClose()}
             />{' '}
           </Box>
         )}
