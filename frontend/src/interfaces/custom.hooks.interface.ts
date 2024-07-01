@@ -38,6 +38,15 @@ export interface IUseSaveProjectHook {
   handleSaveProjectModalClose: () => void;
 }
 }
+
+export interface IUseDeleteProjectHook {
+  openDeleteModal: boolean;
+  handleDeleteModalOpen: () => void;
+  handleDeleteModalClose: () => void;
+  loadingConfirmDeleteButton: boolean;
+  handleConfirmDelete: (id: string) => Promise<void>;
+}
+
 export interface IUseProjectsListHook {
   modalOpen: boolean;
   handleModalOpen: () => void;

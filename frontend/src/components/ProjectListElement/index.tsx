@@ -16,7 +16,8 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { themePalette } from '../../config/theme.config';
 import { ACCESS_LEVEL } from '../../constants/access-levels';
 import { DeleteModal } from '../DeleteModal';
-import { useProjectsList } from '../../hooks';
+import { useSaveProject, useProjectsList, useDeleteProject } from '../../hooks';
+import { ProjectFormModal } from '../ProjectFormModal';
 
 export type ProjectProps = {
   id: string;
@@ -50,6 +51,13 @@ export const ProjectListElement: React.FC<ProjectProps> = ({
     handlePopoverOpen,
     handlePopoverClose,
   } = useProjectsList();
+  const {
+    SaveProjectModalOpen,
+    formik,
+    handleSaveProjectModalOpen,
+    handleSaveProjectModalClose,
+    loadingConfirmSaveButton,
+  } = useSaveProject(title, description, id);
 
   return (
     <Accordion
@@ -136,6 +144,7 @@ export const ProjectListElement: React.FC<ProjectProps> = ({
                 aria-haspopup="true"
                 onMouseEnter={(e) => handlePopoverOpen(e, 'edit')}
                 onMouseLeave={() => handlePopoverClose('edit')}
+                onClick={() => handleSaveProjectModalOpen()}
               >
                 <Edit />
               </Fab>
@@ -157,6 +166,13 @@ export const ProjectListElement: React.FC<ProjectProps> = ({
               >
                 <Typography sx={{ p: 1 }}>Edit project</Typography>
               </Popover>
+              <ProjectFormModal
+                loadingButton={loadingConfirmSaveButton}
+                msg={'EDIT PROJECT'}
+                formik={formik}
+                open={SaveProjectModalOpen}
+                handleClose={() => handleSaveProjectModalClose()}
+              />
             </>
           )}
 
