@@ -39,9 +39,6 @@ export const ProjectListElement: React.FC<ProjectProps> = ({
   handleAccordionChange,
 }) => {
   const {
-    modalOpen,
-    handleModalClose,
-    handleModalOpen,
     anchorAdd,
     anchorEdit,
     anchorDelete,
@@ -58,6 +55,13 @@ export const ProjectListElement: React.FC<ProjectProps> = ({
     handleSaveProjectModalClose,
     loadingConfirmSaveButton,
   } = useSaveProject(title, description, id);
+  const {
+    openDeleteModal,
+    handleConfirmDelete,
+    handleDeleteModalClose,
+    handleDeleteModalOpen,
+    loadingConfirmDeleteButton,
+  } = useDeleteProject();
 
   return (
     <Accordion
@@ -187,7 +191,7 @@ export const ProjectListElement: React.FC<ProjectProps> = ({
                 aria-haspopup="true"
                 onMouseEnter={(e) => handlePopoverOpen(e, 'delete')}
                 onMouseLeave={() => handlePopoverClose('delete')}
-                onClick={() => handleModalOpen()}
+                onClick={() => handleDeleteModalOpen()}
               >
                 <Delete />
               </Fab>
@@ -211,8 +215,10 @@ export const ProjectListElement: React.FC<ProjectProps> = ({
               </Popover>
               <DeleteModal
                 msg="¿Sure you want to delete this project?"
-                open={modalOpen}
-                handleClose={() => handleModalClose()}
+                loading={loadingConfirmDeleteButton}
+                handleConfirmDelete={() => handleConfirmDelete(id)}
+                open={openDeleteModal}
+                handleClose={() => handleDeleteModalClose()}
                 id={id}
               />
             </>

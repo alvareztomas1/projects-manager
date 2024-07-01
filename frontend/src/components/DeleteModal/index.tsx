@@ -1,7 +1,6 @@
 import React from 'react';
 import { Box, Button, Divider, Grid, Modal, Typography } from '@mui/material';
 import { themePalette } from '../../config/theme.config';
-import { useDeleteProject } from '../../hooks';
 import { LoadingButton } from '@mui/lab';
 
 const style = {
@@ -21,6 +20,8 @@ type DeleteProjectModalProps = {
   id: string;
   open: boolean;
   msg: string;
+  loading: boolean;
+  handleConfirmDelete: (id: string) => Promise<void>;
   handleClose: () => void;
 };
 
@@ -29,9 +30,9 @@ export const DeleteModal: React.FC<DeleteProjectModalProps> = ({
   open,
   msg,
   handleClose,
+  loading,
+  handleConfirmDelete,
 }) => {
-  const { loading, handleConfirmDelete } = useDeleteProject();
-
   return (
     <Modal
       open={open}
