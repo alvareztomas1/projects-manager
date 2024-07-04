@@ -1,5 +1,5 @@
 import { BASE_URL } from './base.api';
-import { UserSignUpData } from '../types/user.type';
+import { UserData, UserSignUpData } from '../types/user.type';
 
 const endpoint = 'users';
 
@@ -73,6 +73,30 @@ export const users = {
         method: 'DELETE',
       });
       return await response.json();
+    } catch (error) {
+      throw error;
+    }
+  },
+  findPartial: async (key: keyof UserData, value: any, accessToken: string) => {
+    try {
+      const response = await fetch(
+        `${BASE_URL}${endpoint}/find-partial/${key}/${value}`,
+        {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            access_token: accessToken,
+            'Content-Type': 'application/json',
+          },
+        },
+      );
+      const responseJSON = await response.json();
+
+      if (!response.ok) {
+        throw new Error((responseJSON as Error).message);
+      }
+
+      return responseJSON;
     } catch (error) {
       throw error;
     }
