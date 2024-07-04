@@ -44,3 +44,10 @@ export type UserTask = {
   updatedAt: string;
   task: TaskData;
 };
+
+export type UserToProject = {
+  id: string;
+  label: string;
+  firstName: string;
+  lastName: string;
+};

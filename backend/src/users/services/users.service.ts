@@ -91,4 +91,16 @@ export class UsersService {
 
     return user;
   }
+
+  public async findPatialBy(
+    key: keyof UserEntity,
+    value: any,
+  ): Promise<UserEntity[]> {
+    const users = await this.usersRepository
+      .createQueryBuilder('user')
+      .where({ [key]: Like(`%${value}%`) })
+      .getMany();
+
+    return users;
+  }
 }

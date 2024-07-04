@@ -4,6 +4,11 @@ export type ProjectData = {
   updatedAt: string;
   title: string;
   description: string;
+export type AddUserToProjectData = {
+  user: UserToProject;
+  accessLevel: string;
+};
+
 export type CreateProjectType = {
   title: string;
   description: string;

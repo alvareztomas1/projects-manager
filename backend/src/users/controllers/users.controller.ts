@@ -69,4 +69,17 @@ export class UsersController {
       throw ErrorManager.createSignaturError((error as ErrorManager).message);
     }
   }
+
+  @Roles('CREATOR')
+  @Get('find-partial/:key/:value')
+  public async findPartialBy(
+    @Param('key') key: keyof UserEntity,
+    @Param('value') value: string,
+  ) {
+    try {
+      return await this.usersService.findPatialBy(key, value);
+    } catch (error) {
+      throw ErrorManager.createSignaturError((error as ErrorManager).message);
+    }
+  }
 }
