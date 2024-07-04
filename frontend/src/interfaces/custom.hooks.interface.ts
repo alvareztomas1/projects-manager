@@ -48,9 +48,6 @@ export interface IUseDeleteProjectHook {
 }
 
 export interface IUseProjectsListHook {
-  modalOpen: boolean;
-  handleModalOpen: () => void;
-  handleModalClose: () => void;
   anchorAdd: HTMLElement | null;
   anchorEdit: HTMLElement | null;
   anchorDelete: HTMLElement | null;
@@ -62,4 +59,18 @@ export interface IUseProjectsListHook {
     type: 'add' | 'edit' | 'delete',
   ) => void;
   handlePopoverClose: (type: 'add' | 'edit' | 'delete') => void;
+}
+
+export interface IUseAddUserToProject {
+  addUserToProjectModalOpen: boolean;
+  handleAddUserToProjectModalClose: () => void;
+  handleAddUserToProjectModalOpen: () => void;
+  loadingAddUserButton: boolean;
+  handleSearchOnChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  searchResult: UserData[];
+  addUserToProjectFormik: ReturnType<typeof useFormik<AddUserToProjectData>>;
+  handleUserSelection: (
+    event: SyntheticEvent<Element, Event>,
+    selectedUser: UserToProject,
+  ) => void;
 }

@@ -105,7 +105,7 @@ export const projects = {
   addUserToProject: async (
     projectId: string,
     body: {
-      userId: string;
+      user: string;
       accessLevel: ACCESS_LEVEL;
     },
     accessToken: string,
