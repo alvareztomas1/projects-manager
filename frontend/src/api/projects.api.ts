@@ -1,3 +1,4 @@
+import { ACCESS_LEVEL } from '../constants/access-levels';
 import { CreateProjectType } from '../types/project.type';
 import { BASE_URL } from './base.api';
 
@@ -90,6 +91,38 @@ export const projects = {
           'Content-Type': 'application/json',
         },
       });
+      const responseJSON = await response.json();
+
+      if (!response.ok) {
+        throw new Error((responseJSON as Error).message);
+      }
+
+      return responseJSON;
+    } catch (error) {
+      throw error;
+    }
+  },
+  addUserToProject: async (
+    projectId: string,
+    body: {
+      userId: string;
+      accessLevel: ACCESS_LEVEL;
+    },
+    accessToken: string,
+  ) => {
+    try {
+      const response = await fetch(
+        `${BASE_URL}${endpoint}/add/user-to-project/${projectId}`,
+        {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            access_token: accessToken,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(body),
+        },
+      );
       const responseJSON = await response.json();
 
       if (!response.ok) {
