@@ -16,8 +16,14 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { themePalette } from '../../config/theme.config';
 import { ACCESS_LEVEL } from '../../constants/access-levels';
 import { DeleteModal } from '../DeleteModal';
-import { useSaveProject, useProjectsList, useDeleteProject } from '../../hooks';
+import {
+  useSaveProject,
+  useProjectsList,
+  useDeleteProject,
+  useAddUserToProject,
+} from '../../hooks';
 import { ProjectFormModal } from '../ProjectFormModal';
+import { AddUserToProjectModal } from '../AddUserToProjectModal';
 
 export type ProjectProps = {
   id: string;
@@ -62,7 +68,16 @@ export const ProjectListElement: React.FC<ProjectProps> = ({
     handleDeleteModalOpen,
     loadingConfirmDeleteButton,
   } = useDeleteProject();
-
+  const {
+    addUserToProjectModalOpen,
+    handleAddUserToProjectModalClose,
+    handleAddUserToProjectModalOpen,
+    loadingAddUserButton,
+    handleSearchOnChange,
+    searchResult,
+    addUserToProjectFormik,
+    handleUserSelection,
+  } = useAddUserToProject(id);
   return (
     <Accordion
       onChange={handleAccordionChange(id)}
@@ -117,6 +132,7 @@ export const ProjectListElement: React.FC<ProjectProps> = ({
                 aria-haspopup="true"
                 onMouseEnter={(e) => handlePopoverOpen(e, 'add')}
                 onMouseLeave={() => handlePopoverClose('add')}
+                onClick={() => handleAddUserToProjectModalOpen()}
               >
                 <Add />
               </Fab>
@@ -138,6 +154,23 @@ export const ProjectListElement: React.FC<ProjectProps> = ({
               >
                 <Typography sx={{ p: 1 }}>Add user to project</Typography>
               </Popover>
+
+              <AddUserToProjectModal
+                loadingAddUserButton={loadingAddUserButton}
+                openModal={addUserToProjectModalOpen}
+                handleClose={handleAddUserToProjectModalClose}
+                handleSearchOnChange={handleSearchOnChange}
+                options={searchResult?.map((user) => ({
+                  id: user.id,
+                  label: user.username,
+                  firstName: user.firstName,
+                  lastName: user.lastName,
+                }))}
+                formik={addUserToProjectFormik}
+                handleUserSelection={(e: any, newValue: any) =>
+                  handleUserSelection(e, newValue)
+                }
+              />
 
               <Fab
                 color="secondary"
