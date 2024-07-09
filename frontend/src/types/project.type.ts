@@ -29,3 +29,17 @@ export type CreateProjectType = {
   title: string;
   description: string;
 };
+
+export type ProjectTasksStats = {
+  totalTasks: number;
+  totalPending: number;
+  totalInProgress: number;
+  totalComplete: number;
+};
+
+export type ProjectUserStats = {
+  totalUsers: number;
+  totalBasic: number;
+  totalMaintaner: number;
+  totalOwner: number;
+};
