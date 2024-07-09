@@ -22,7 +22,7 @@ export type UserInProjectData = {
 
 export type AddUserToProjectData = {
   user: UserToProject;
-  accessLevel: string;
+  accessLevel: ACCESS_LEVEL;
 };
 
 export type CreateProjectType = {
