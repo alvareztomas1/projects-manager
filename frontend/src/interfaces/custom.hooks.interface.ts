@@ -1,7 +1,13 @@
 import { useFormik } from 'formik';
 import { LoginType } from '../types/login.type';
 import { SignUpDataType } from '../types/signup.type';
-import { UserData, UserProjectData } from '../types/user.type';
+import { UserData, UserProjectData, UserToProject } from '../types/user.type';
+import {
+  AddUserToProjectData,
+  CreateProjectType,
+  ProjectData,
+} from '../types/project.type';
+import { SyntheticEvent } from 'react';
 
 export interface IUseLoginHook {
   formik: ReturnType<typeof useFormik<LoginType>>;
@@ -37,6 +43,10 @@ export interface IUseSaveProjectHook {
   handleSaveProjectModalOpen: () => void;
   handleSaveProjectModalClose: () => void;
 }
+
+export interface IUseProjectHook {
+  project: ProjectData | null;
+  loading: boolean;
 }
 
 export interface IUseDeleteProjectHook {
