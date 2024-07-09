@@ -5,6 +5,8 @@ import useHomePage from './home/useHomePage';
 import useSaveProject from './home/useSaveProject';
 import useDeleteProject from './home/useDeleteProject';
 import useProjectsList from './home/useProjectsList';
+import useProject from './project/useProject';
+import useAddUserToProject from './home/useAddUserToProject';
 export {
   useNavBar,
   useLogin,
@@ -13,4 +15,6 @@ export {
   useSaveProject,
   useDeleteProject,
   useProjectsList,
+  useAddUserToProject,
+  useProject,
 };

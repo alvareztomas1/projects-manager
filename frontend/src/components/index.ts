@@ -5,3 +5,4 @@ export { ProjectFormModal } from './ProjectFormModal';
 export { NoProjectsMessage } from './NoProjectsMessage';
 export { DeleteModal } from './DeleteModal';
 export { AddUserToProjectModal } from './AddUserToProjectModal';
+export { ProjectStats } from './ProjectStats';
