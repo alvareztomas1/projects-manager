@@ -103,7 +103,8 @@ export const AddUserToProjectModal: React.FC<AddUserToProjectModalProps> = ({
                 'The value entered must be equal to an username of the list'
               }
               {...params}
-              label={'Select an user to add'}
+              label="Select a user"
+              placeholder="Search for a user"
             />
           )}
           sx={{ mb: 2 }}

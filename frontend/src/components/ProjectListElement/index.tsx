@@ -105,7 +105,7 @@ export const ProjectListElement: React.FC<ProjectProps> = ({
       </AccordionSummary>
 
       <AccordionDetails>
-        <Typography variant="h6">
+        <Typography sx={{ wordBreak: 'break-word' }} variant="h6">
           {description.split('')[0].toUpperCase() + description.slice(1)}
         </Typography>
       </AccordionDetails>
