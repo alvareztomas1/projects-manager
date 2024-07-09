@@ -37,6 +37,8 @@ const useSaveProject = (
     },
     validationSchema: CreateProjectValidate,
     onSubmit: async (values) => {
+      setLoadingConfirmSaveButton(true);
+
       try {
         if (!projectId) {
           await projects.create(userData!.id, values, accessToken!);
@@ -44,7 +46,6 @@ const useSaveProject = (
           getSuccess('! Project created successfully !');
         } else {
           await projects.edit(projectId, values, accessToken!);
-          setLoadingConfirmSaveButton(true);
           getInfo('! Project edited successfully !');
         }
 

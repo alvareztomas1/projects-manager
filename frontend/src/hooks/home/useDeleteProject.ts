@@ -21,10 +21,10 @@ const useDeleteProject = (): IUseDeleteProjectHook => {
   };
 
   const handleConfirmDelete = async (id: string) => {
+    setLoadingConfirmDeleteButton(true);
+
     try {
       await projects.delete(id, accessToken!);
-
-      setLoadingConfirmDeleteButton(true);
       getSuccess('Project deleted!');
       navigate('/login');
     } catch (error) {
