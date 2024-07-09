@@ -9,6 +9,7 @@ export enum themePalette {
   BG = '#0F1C2E',
   BG_2 = '#1f2b3e',
   PRIMARY = '#acc2ef',
+  LIGHT_PRIMARY = '#cee8ff',
   FONT_GLOBAL = 'Roboto',
 }
 
@@ -20,6 +21,10 @@ const theme = createTheme({
     },
     primary: {
       main: themePalette.PRIMARY,
+    },
+
+    info: {
+      main: themePalette.LIGHT_PRIMARY,
     },
   },
   typography: {
