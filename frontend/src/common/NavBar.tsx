@@ -10,9 +10,11 @@ import {
 import React from 'react';
 import { themePalette } from '../config/theme.config';
 import { useNavBar } from '../hooks';
+import { useNavigate } from 'react-router-dom';
 
 export const NavBar: React.FC<{}> = () => {
   const { handleLogout } = useNavBar();
+  const navigate = useNavigate();
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -38,7 +40,9 @@ export const NavBar: React.FC<{}> = () => {
                     fontSize: 'x-large',
                     letterSpacing: '-0.08rem',
                     color: themePalette.PRIMARY,
+                    cursor: 'pointer',
                   }}
+                  onClick={() => navigate('/')}
                 >
                   Projects Manager
                 </Typography>
