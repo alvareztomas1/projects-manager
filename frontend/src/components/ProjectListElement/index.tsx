@@ -7,11 +7,10 @@ import {
   Typography,
   ButtonGroup,
   Fab,
-  Popover,
   Chip,
   Box,
 } from '@mui/material';
-import { Add, Delete, Edit, Info } from '@mui/icons-material';
+import { Info } from '@mui/icons-material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { themePalette } from '../../config/theme.config';
 import { ACCESS_LEVEL } from '../../constants/access-levels';
@@ -24,6 +23,9 @@ import {
 } from '../../hooks';
 import { ProjectFormModal } from '../ProjectFormModal';
 import { AddUserToProjectModal } from '../AddUserToProjectModal';
+import { AddUserButton } from './AddUserButton';
+import { EditProjectButton } from './EditProjectButton';
+import { DeleteProjectButton } from './DeleteProjectButton';
 
 export type ProjectProps = {
   id: string;
@@ -123,38 +125,15 @@ export const ProjectListElement: React.FC<ProjectProps> = ({
 
           {+accessLevel > ACCESS_LEVEL.BASIC && (
             <>
-              <Fab
-                color="primary"
-                aria-label="add"
-                aria-owns={
-                  openAddPopover ? 'mouse-over-popover-add' : undefined
+              <AddUserButton
+                anchorAdd={anchorAdd}
+                openAddPopover={openAddPopover}
+                handlePopoverClose={handlePopoverClose}
+                handlePopoverOpen={handlePopoverOpen}
+                handleAddUserToProjectModalOpen={
+                  handleAddUserToProjectModalOpen
                 }
-                aria-haspopup="true"
-                onMouseEnter={(e) => handlePopoverOpen(e, 'add')}
-                onMouseLeave={() => handlePopoverClose('add')}
-                onClick={() => handleAddUserToProjectModalOpen()}
-              >
-                <Add />
-              </Fab>
-              <Popover
-                id="mouse-over-popover-add"
-                sx={{ pointerEvents: 'none' }}
-                open={openAddPopover}
-                anchorEl={anchorAdd}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'left',
-                }}
-                onClose={() => handlePopoverClose('add')}
-                disableRestoreFocus
-              >
-                <Typography sx={{ p: 1 }}>Add user to project</Typography>
-              </Popover>
-
+              />
               <AddUserToProjectModal
                 loadingAddUserButton={loadingAddUserButton}
                 openModal={addUserToProjectModalOpen}
@@ -172,37 +151,13 @@ export const ProjectListElement: React.FC<ProjectProps> = ({
                 }
               />
 
-              <Fab
-                color="secondary"
-                aria-label="edit"
-                aria-owns={
-                  openEditPopover ? 'mouse-over-popover-edit' : undefined
-                }
-                aria-haspopup="true"
-                onMouseEnter={(e) => handlePopoverOpen(e, 'edit')}
-                onMouseLeave={() => handlePopoverClose('edit')}
-                onClick={() => handleSaveProjectModalOpen()}
-              >
-                <Edit />
-              </Fab>
-              <Popover
-                id="mouse-over-popover-edit"
-                sx={{ pointerEvents: 'none' }}
-                open={openEditPopover}
-                anchorEl={anchorEdit}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'left',
-                }}
-                onClose={() => handlePopoverClose('edit')}
-                disableRestoreFocus
-              >
-                <Typography sx={{ p: 1 }}>Edit project</Typography>
-              </Popover>
+              <EditProjectButton
+                anchorEdit={anchorEdit}
+                openEditPopover={openEditPopover}
+                handlePopoverOpen={handlePopoverOpen}
+                handlePopoverClose={handlePopoverClose}
+                handleSaveProjectModalOpen={handleSaveProjectModalOpen}
+              />
               <ProjectFormModal
                 loadingButton={loadingConfirmSaveButton}
                 msg={'EDIT PROJECT'}
@@ -215,37 +170,13 @@ export const ProjectListElement: React.FC<ProjectProps> = ({
 
           {+accessLevel > ACCESS_LEVEL.MAINTAINER && (
             <>
-              <Fab
-                color="error"
-                aria-label="delete"
-                aria-owns={
-                  openDeletePopover ? 'mouse-over-popover-delete' : undefined
-                }
-                aria-haspopup="true"
-                onMouseEnter={(e) => handlePopoverOpen(e, 'delete')}
-                onMouseLeave={() => handlePopoverClose('delete')}
-                onClick={() => handleDeleteModalOpen()}
-              >
-                <Delete />
-              </Fab>
-              <Popover
-                id="mouse-over-popover-delete"
-                sx={{ pointerEvents: 'none' }}
-                open={openDeletePopover}
-                anchorEl={anchorDelete}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'left',
-                }}
-                onClose={() => handlePopoverClose('delete')}
-                disableRestoreFocus
-              >
-                <Typography sx={{ p: 1 }}>Delete project</Typography>
-              </Popover>
+              <DeleteProjectButton
+                anchorDelete={anchorDelete}
+                openDeletePopover={openDeletePopover}
+                handlePopoverOpen={handlePopoverOpen}
+                handlePopoverClose={handlePopoverClose}
+                handleDeleteModalOpen={handleDeleteModalOpen}
+              />
               <DeleteModal
                 msg="¿Sure you want to delete this project?"
                 loading={loadingConfirmDeleteButton}
