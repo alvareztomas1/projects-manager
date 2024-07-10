@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Paper, Stack } from '@mui/material';
+import { Button, Divider, Paper, Stack, Typography } from '@mui/material';
 import { themePalette } from '../../config/theme.config';
 import { TaskData } from '../../types/task.type';
 import { UserInProjectData } from '../../types/project.type';
@@ -38,15 +38,48 @@ export const ProjectStats: React.FC<ProjectStatsProps> = ({
         }}
         elevation={3}
       >
-        <TasksStats
-          totalTasks={projectTasksStats.totalTasks}
-          totalComplete={projectTasksStats.totalComplete}
-          totalPending={projectTasksStats.totalPending}
-          totalInProgress={projectTasksStats.totalInProgress}
-        />
-        <Button sx={{ mt: 2 }} size="large" variant="contained" fullWidth>
-          {projectTasksStats.totalTasks ? 'Tasks' : 'Add tasks'}
-        </Button>
+        <Typography
+          display={'flex'}
+          justifyContent={'center'}
+          variant="h6"
+          fontWeight={'bold'}
+          alignItems={'center'}
+          letterSpacing={'-0.03rem'}
+        >
+          <Task />
+          TASKS STATS
+        </Typography>
+
+        <Divider sx={{ m: 1 }} />
+
+        {projectTasks.length ? (
+          <>
+            <TasksStats
+              totalTasks={projectTasksStats.totalTasks}
+              totalComplete={projectTasksStats.totalComplete}
+              totalPending={projectTasksStats.totalPending}
+              totalInProgress={projectTasksStats.totalInProgress}
+            />
+            <Button sx={{ mt: 2 }} size="large" variant="contained" fullWidth>
+              Tasks
+            </Button>
+          </>
+        ) : (
+          <>
+            <Typography sx={{ mt: 2 }} variant="subtitle1">
+              The project doenst have any task
+            </Typography>
+            <Button
+              onClick={() => handleSaveTaskModalOpen()}
+              sx={{ mt: 2, fontWeight: 'bold' }}
+              size="large"
+              variant="contained"
+              fullWidth
+            >
+              ADD TASK
+            </Button>
+          </>
+        )}
       </Paper>
 
       <Paper
