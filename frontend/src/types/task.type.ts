@@ -8,3 +8,9 @@ export type TaskData = {
   description: string;
   status: STATUS;
 };
+
+export type AddTask = {
+  title: string;
+  description: string;
+  status: STATUS;
+};

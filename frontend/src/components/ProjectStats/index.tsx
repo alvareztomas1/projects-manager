@@ -7,6 +7,9 @@ import { getProjectStats } from '../../utils/project.stats';
 import { UsersStats } from './Users';
 import { TotalStats } from './TotalStats';
 import { TasksStats } from './Tasks';
+import { Task } from '@mui/icons-material';
+import { useSaveTask } from '../../hooks';
+import { SaveTaskModal } from '../SaveTaskModal';
 
 type ProjectStatsProps = {
   projectTasks: TaskData[];
@@ -21,6 +24,13 @@ export const ProjectStats: React.FC<ProjectStatsProps> = ({
     projectTasks,
     projectsUsers,
   );
+  const {
+    saveTaskModalOpen,
+    handleSaveTaskModalClose,
+    handleSaveTaskModalOpen,
+    loadingSaveTaskButton,
+    addTaskFormik,
+  } = useSaveTask();
   return (
     <Stack
       justifyContent={'space-evenly'}
@@ -78,6 +88,12 @@ export const ProjectStats: React.FC<ProjectStatsProps> = ({
             >
               ADD TASK
             </Button>
+            <SaveTaskModal
+              openModal={saveTaskModalOpen}
+              handleClose={() => handleSaveTaskModalClose()}
+              loadingSaveTaskButton={loadingSaveTaskButton}
+              formik={addTaskFormik}
+            />
           </>
         )}
       </Paper>

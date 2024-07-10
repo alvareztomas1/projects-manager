@@ -8,6 +8,7 @@ import {
   ProjectData,
 } from '../types/project.type';
 import { SyntheticEvent } from 'react';
+import { AddTask } from '../types/task.type';
 
 export interface IUseLoginHook {
   formik: ReturnType<typeof useFormik<LoginType>>;
@@ -42,6 +43,14 @@ export interface IUseSaveProjectHook {
   formik: ReturnType<typeof useFormik<CreateProjectType>>;
   handleSaveProjectModalOpen: () => void;
   handleSaveProjectModalClose: () => void;
+}
+
+export interface IUseSaveTask {
+  saveTaskModalOpen: boolean;
+  loadingSaveTaskButton: boolean;
+  addTaskFormik: ReturnType<typeof useFormik<AddTask>>;
+  handleSaveTaskModalOpen: () => void;
+  handleSaveTaskModalClose: () => void;
 }
 
 export interface IUseProjectHook {

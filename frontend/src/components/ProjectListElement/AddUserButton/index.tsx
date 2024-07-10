@@ -1,6 +1,6 @@
+import React from 'react';
 import { Add } from '@mui/icons-material';
 import { Fab, Popover, Typography } from '@mui/material';
-import React from 'react';
 
 type AddUserButtonProps = {
   anchorAdd: HTMLElement | null;
