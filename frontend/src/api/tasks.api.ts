@@ -1,4 +1,3 @@
-import { CreateProjectType } from '../types/project.type';
 import { AddTask } from '../types/task.type';
 import { BASE_URL } from './base.api';
 
@@ -27,11 +26,7 @@ export const tasks = {
       throw error;
     }
   },
-  edit: async (
-    projectId: string,
-    body: CreateProjectType,
-    accessToken: string,
-  ) => {
+  edit: async (projectId: string, body: AddTask, accessToken: string) => {
     try {
       const response = await fetch(
         `${BASE_URL}${endpoint}/update/${projectId}`,
