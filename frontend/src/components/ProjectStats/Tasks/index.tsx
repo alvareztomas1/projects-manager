@@ -1,11 +1,6 @@
 import React from 'react';
 import { Divider, Stack, Typography } from '@mui/material';
-import {
-  CheckCircle,
-  Pending,
-  RemoveCircleRounded,
-  Task,
-} from '@mui/icons-material';
+import { CheckCircle, Pending, RemoveCircleRounded } from '@mui/icons-material';
 import { Percentage } from '../../Percentage';
 import { ProjectTasksStats } from '../../../types/project.type';
 import { calculatePercentage } from '../../../utils/project.stats';

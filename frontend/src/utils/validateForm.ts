@@ -1,4 +1,5 @@
 import * as yup from 'yup';
+import { STATUS } from '../constants/status';
 
 export const LoginValidate = yup.object().shape({
   userIdentifier: yup
