@@ -3,12 +3,21 @@ import { useFormik } from 'formik';
 import { STATUS } from '../../constants/status';
 import { IUseSaveTask } from '../../interfaces/custom.hooks.interface';
 import { AddTask } from '../../types/task.type';
+import { SaveTaskValidate } from '../../utils/validateForm';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useNotification } from '../../context/notification.context';
+import { useAppSelector } from '../../redux/hooks';
+import { tasks } from '../../api/tasks.api';
 
 export const useSaveTask = (
   initialTitle: string = '',
   initialDescription: string = '',
   taskId: string | null = null,
 ): IUseSaveTask => {
+  const { accessToken } = useAppSelector((state) => state.authReducer);
+  const navigate = useNavigate();
+  const { getSuccess, getInfo, getError } = useNotification();
+  const { projectId } = useParams();
   const [saveTaskModalOpen, setSaveTaskModalOpen] = React.useState(false);
   const [loadingSaveTaskButton, setLoadingSaveTaskButton] =
     React.useState(false);
@@ -26,7 +35,25 @@ export const useSaveTask = (
       description: initialDescription,
       status: STATUS.PENDING,
     },
+    validationSchema: SaveTaskValidate,
     onSubmit: async (values) => {
+      setLoadingSaveTaskButton(true);
+
+      try {
+        if (!taskId) {
+          await tasks.create(projectId!, values, accessToken!);
+          getSuccess('! Task created successfully !');
+        } else {
+          await tasks.edit(taskId, values, accessToken!);
+          getInfo('! Task edited successfully !');
+        }
+
+        navigate('/login');
+      } catch (error) {
+        getError((error as Error).message);
+        setLoadingSaveTaskButton(false);
+      }
+    },
   });
 
   return {
