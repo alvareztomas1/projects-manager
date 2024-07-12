@@ -7,3 +7,6 @@ export { DeleteModal } from './DeleteModal';
 export { AddUserToProjectModal } from './AddUserToProjectModal';
 export { ProjectStats } from './ProjectStats';
 export { SaveTaskModal } from './SaveTaskModal';
+export { CreateNewProject } from './CreateNewProject';
+export { ProjectsList } from './ProjectsList';
+export { WelcomeMessage } from './WelcomeMessage';

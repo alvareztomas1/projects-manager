@@ -1,45 +1,19 @@
 import React from 'react';
-import {
-  Box,
-  Button,
-  CircularProgress,
-  Container,
-  Divider,
-  Typography,
-} from '@mui/material';
-import { useSaveProject, useHomePage } from '../../hooks';
+import { Container, Divider, Paper } from '@mui/material';
+import { useHomePage } from '../../hooks';
 import { themePalette } from '../../config/theme.config';
 import {
-  ProjectFormModal,
   NoProjectsMessage,
-  ProjectListElement,
+  CreateNewProject,
+  ProjectsList,
+  WelcomeMessage,
 } from '../../components';
+import { LoadingSpinner } from '../../common/LoadingSpinner';
+import { ROLES } from '../../constants/roles';
 
 export const HomePage: React.FC<{}> = () => {
-  const { user, loading, projects, expanded, handleAccordionChange } =
-    useHomePage();
-  const {
-    formik,
-    SaveProjectModalOpen,
-    handleSaveProjectModalClose,
-    handleSaveProjectModalOpen,
-    loadingConfirmSaveButton,
-  } = useSaveProject();
-
-  const renderProjectsList = projects?.map((userProject, index) => {
-    return (
-      <div key={`project-${userProject.id}`}>
-        <ProjectListElement
-          accessLevel={userProject.accessLevel}
-          handleAccordionChange={handleAccordionChange}
-          expanded={expanded}
-          id={userProject.project.id}
-          title={userProject.project.title}
-          description={userProject.project.description}
-        />
-      </div>
-    );
-  });
+  const { user, loading } = useHomePage();
+  const userHasBasicRole = user?.role === ROLES.BASIC;
 
   return (
     <Container
@@ -52,53 +26,31 @@ export const HomePage: React.FC<{}> = () => {
       maxWidth="md"
     >
       {loading ? (
-        <Box sx={{ display: 'flex', justifyContent: 'center' }}>
-          <CircularProgress />
-        </Box>
+        <LoadingSpinner />
       ) : (
         <>
-          <Typography
-            sx={{ display: 'flex', justifyContent: 'center' }}
-            variant="h2"
-          >
-            Welcome!{' '}
-            {user!.firstName.charAt(0).toUpperCase() + user!.firstName.slice(1)}{' '}
-            {user!.lastName.charAt(0).toUpperCase() + user!.lastName.slice(1)}
-          </Typography>
+          <WelcomeMessage
+            firstName={user!.firstName}
+            lastName={user!.lastName}
+          />
+
           <Divider sx={{ m: 2 }} />
-          {projects?.length ? (
-            <>
-              <Box sx={{ m: 1 }} display={'flex'} justifyContent={'center'}>
-                <Button
-                  sx={{ letterSpacing: '-0.02rem', fontWeight: 'bold' }}
-                  variant="contained"
-                  onClick={handleSaveProjectModalOpen}
-                  size="large"
-                >
-                  {'CREATE A NEW PROJECT'}
-                </Button>
-                <ProjectFormModal
-                  formik={formik}
-                  msg={'CREATE A NEW PROJECT'}
-                  loadingButton={loadingConfirmSaveButton}
-                  open={SaveProjectModalOpen}
-                  handleClose={() => handleSaveProjectModalClose()}
-                />
-              </Box>
-              <Typography variant="subtitle1">
-                Here is a list of your current projects
-              </Typography>
-              {renderProjectsList}
-            </>
+
+          {!userHasBasicRole && <CreateNewProject />}
+
+          {user?.projectsIncluded.length ? (
+            <ProjectsList projects={user.projectsIncluded} />
           ) : (
-            <NoProjectsMessage
-              loading={loadingConfirmSaveButton}
-              open={SaveProjectModalOpen}
-              formik={formik}
-              userRole={user!.role}
-              handleSaveProjectModalOpen={handleSaveProjectModalOpen}
-              handleSaveProjectModalClose={handleSaveProjectModalClose}
-            />
+            <Paper
+              sx={{
+                backgroundColor: themePalette.BG_2,
+                padding: 3,
+                borderRadius: '10px',
+              }}
+              elevation={24}
+            >
+              <NoProjectsMessage userRole={user!.role} />
+            </Paper>
           )}
         </>
       )}

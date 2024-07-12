@@ -1,7 +1,7 @@
 import { useFormik } from 'formik';
 import { LoginType } from '../types/login.type';
 import { SignUpDataType } from '../types/signup.type';
-import { UserData, UserProjectData, UserToProject } from '../types/user.type';
+import { UserData, UserToProject } from '../types/user.type';
 import {
   AddUserToProjectData,
   CreateProjectType,
@@ -29,12 +29,7 @@ export interface IUseNavBarHook {
 
 export interface IUseHomeHook {
   user: UserData | null;
-  projects: UserProjectData[] | undefined;
   loading: boolean;
-  expanded: string | false;
-  handleAccordionChange: (
-    panel: string,
-  ) => (event: React.SyntheticEvent, isExpanded: boolean) => void;
 }
 
 export interface IUseSaveProjectHook {
