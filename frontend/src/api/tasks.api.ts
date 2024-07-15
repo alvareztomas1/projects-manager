@@ -51,4 +51,27 @@ export const tasks = {
       throw error;
     }
   },
+  findTasksByProject: async (projectId: string, accessToken: string) => {
+    try {
+      const response = await fetch(
+        `${BASE_URL}${endpoint}/find-all/${projectId}`,
+        {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            access_token: accessToken,
+            'Content-Type': 'application/json',
+          },
+        },
+      );
+      const responseJSON = await response.json();
+      if (!response.ok) {
+        throw new Error((responseJSON as Error).message);
+      }
+
+      return responseJSON;
+    } catch (error) {
+      throw error;
+    }
+  },
 };
