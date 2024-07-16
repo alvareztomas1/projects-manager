@@ -10,3 +10,4 @@ export { SaveTaskModal } from './SaveTaskModal';
 export { CreateNewProject } from './CreateNewProject';
 export { ProjectsList } from './ProjectsList';
 export { WelcomeMessage } from './WelcomeMessage';
+export { TasksDataGrid } from './TasksDataGrid';
