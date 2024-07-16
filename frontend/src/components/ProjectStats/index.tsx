@@ -8,15 +8,16 @@ import { UsersStats } from './Users';
 import { TotalStats } from './TotalStats';
 import { TasksStats } from './Tasks';
 import { Task } from '@mui/icons-material';
-import { useSaveTask } from '../../hooks';
-import { SaveTaskModal } from '../SaveTaskModal';
+import { AddTask } from './AddTask';
 
 type ProjectStatsProps = {
+  projectId: string;
   projectTasks: TaskData[];
   projectsUsers: UserInProjectData[];
 };
 
 export const ProjectStats: React.FC<ProjectStatsProps> = ({
+  projectId,
   projectTasks,
   projectsUsers,
 }) => {
@@ -24,13 +25,6 @@ export const ProjectStats: React.FC<ProjectStatsProps> = ({
     projectTasks,
     projectsUsers,
   );
-  const {
-    saveTaskModalOpen,
-    handleSaveTaskModalClose,
-    handleSaveTaskModalOpen,
-    loadingSaveTaskButton,
-    addTaskFormik,
-  } = useSaveTask();
   return (
     <Stack
       justifyContent={'space-evenly'}
@@ -70,31 +64,18 @@ export const ProjectStats: React.FC<ProjectStatsProps> = ({
               totalPending={projectTasksStats.totalPending}
               totalInProgress={projectTasksStats.totalInProgress}
             />
-            <Button sx={{ mt: 2 }} size="large" variant="contained" fullWidth>
-              Tasks
-            </Button>
-          </>
-        ) : (
-          <>
-            <Typography sx={{ mt: 2 }} variant="subtitle1">
-              The project doenst have any task
-            </Typography>
             <Button
-              onClick={() => handleSaveTaskModalOpen()}
-              sx={{ mt: 2, fontWeight: 'bold' }}
+              href={`/project/tasks/${projectId}`}
+              sx={{ mt: 2 }}
               size="large"
               variant="contained"
               fullWidth
             >
-              ADD TASK
+              Tasks
             </Button>
-            <SaveTaskModal
-              openModal={saveTaskModalOpen}
-              handleClose={() => handleSaveTaskModalClose()}
-              loadingSaveTaskButton={loadingSaveTaskButton}
-              formik={addTaskFormik}
-            />
           </>
+        ) : (
+          <AddTask />
         )}
       </Paper>
 

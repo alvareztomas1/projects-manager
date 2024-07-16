@@ -53,6 +53,7 @@ export const ProjectPage: React.FC<{}> = () => {
       </Typography>
 
       <ProjectStats
+        projectId={project!.id}
         projectTasks={project!.tasks}
         projectsUsers={project!.usersIncluded}
       />
