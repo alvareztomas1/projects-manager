@@ -33,6 +33,7 @@ const style = {
 };
 
 type SaveTaskModalProps = {
+  msg: string;
   openModal: boolean;
   loadingSaveTaskButton: boolean;
   handleClose: () => void;
@@ -40,6 +41,7 @@ type SaveTaskModalProps = {
 };
 
 export const SaveTaskModal: React.FC<SaveTaskModalProps> = ({
+  msg,
   openModal,
   loadingSaveTaskButton,
   handleClose,
@@ -59,7 +61,7 @@ export const SaveTaskModal: React.FC<SaveTaskModalProps> = ({
           justifyContent={'center'}
           variant="h6"
         >
-          ADD USER TO PROJECT
+          {msg}
         </Typography>
 
         <Divider sx={{ mt: 1, mb: 2 }} />

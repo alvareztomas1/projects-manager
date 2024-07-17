@@ -11,9 +11,10 @@ import { tasks } from '../../api/tasks.api';
 import { getTasksThunk } from '../../redux/thunks/getTasks.thunk';
 
 const useSaveTask = (
+  taskId: string | null = null,
   initialTitle: string = '',
   initialDescription: string = '',
-  taskId: string | null = null,
+  taskStatus: STATUS = STATUS.PENDING,
 ): IUseSaveTask => {
   const { accessToken } = useAppSelector((state) => state.authReducer);
   const navigate = useNavigate();
@@ -31,11 +32,11 @@ const useSaveTask = (
     setSaveTaskModalOpen(false);
   };
 
-  const addTaskFormik = useFormik<AddTask>({
+  const saveTaskFormik = useFormik<AddTask>({
     initialValues: {
       title: initialTitle,
       description: initialDescription,
-      status: STATUS.PENDING,
+      status: taskStatus,
     },
     validationSchema: SaveTaskValidate,
     onSubmit: async (values) => {
@@ -44,10 +45,10 @@ const useSaveTask = (
       try {
         if (!taskId) {
           await tasks.create(projectId!, values, accessToken!);
-          getSuccess('! Task created successfully !');
+          getSuccess('Task created successfully');
         } else {
           await tasks.edit(taskId, values, accessToken!);
-          getInfo('! Task edited successfully !');
+          getInfo('Task edited successfully');
         }
 
         await dispatch(
@@ -69,7 +70,7 @@ const useSaveTask = (
     handleSaveTaskModalOpen,
     handleSaveTaskModalClose,
     loadingSaveTaskButton,
-    addTaskFormik,
+    saveTaskFormik,
   };
 };
 

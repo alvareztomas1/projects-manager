@@ -43,7 +43,7 @@ export interface IUseSaveProjectHook {
 export interface IUseSaveTask {
   saveTaskModalOpen: boolean;
   loadingSaveTaskButton: boolean;
-  addTaskFormik: ReturnType<typeof useFormik<AddTask>>;
+  saveTaskFormik: ReturnType<typeof useFormik<AddTask>>;
   handleSaveTaskModalOpen: () => void;
   handleSaveTaskModalClose: () => void;
 }

@@ -9,7 +9,7 @@ export const AddTaskToProject: React.FC<{}> = () => {
     handleSaveTaskModalClose,
     handleSaveTaskModalOpen,
     loadingSaveTaskButton,
-    addTaskFormik,
+    saveTaskFormik,
   } = useSaveTask();
   return (
     <Box mb={4} display={'flex'} justifyContent={'space-between'}>
@@ -27,10 +27,11 @@ export const AddTaskToProject: React.FC<{}> = () => {
       </Button>
 
       <SaveTaskModal
+        msg={'ADD TASK TO PROJECT'}
         openModal={saveTaskModalOpen}
         handleClose={() => handleSaveTaskModalClose()}
         loadingSaveTaskButton={loadingSaveTaskButton}
-        formik={addTaskFormik}
+        formik={saveTaskFormik}
       />
     </Box>
   );
