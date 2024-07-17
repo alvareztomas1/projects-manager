@@ -1,5 +1,5 @@
 import React from 'react';
-import { DeleteProjectButton } from './DeleteProjectButton';
+import { DeleteButton } from '../../DeleteButton';
 import { DeleteModal } from '../../DeleteModal';
 import { useDeleteProject, useProjectsList } from '../../../hooks';
 
@@ -24,7 +24,8 @@ export const DeleteProject: React.FC<DeleteProjectProps> = ({ projectId }) => {
   } = useDeleteProject();
   return (
     <>
-      <DeleteProjectButton
+      <DeleteButton
+        msg={'Delete project'}
         anchorDelete={anchorDelete}
         openDeletePopover={openDeletePopover}
         handlePopoverOpen={handlePopoverOpen}

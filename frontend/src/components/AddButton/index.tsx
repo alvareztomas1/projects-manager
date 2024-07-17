@@ -2,7 +2,8 @@ import React from 'react';
 import { Add } from '@mui/icons-material';
 import { Fab, Popover, Typography } from '@mui/material';
 
-type AddUserButtonProps = {
+type AddButtonProps = {
+  msg: string;
   anchorAdd: HTMLElement | null;
   openAddPopover: boolean;
   handlePopoverOpen: (
@@ -13,7 +14,8 @@ type AddUserButtonProps = {
   handleAddUserToProjectModalOpen: () => void;
 };
 
-export const AddUserButton: React.FC<AddUserButtonProps> = ({
+export const AddButton: React.FC<AddButtonProps> = ({
+  msg,
   anchorAdd,
   openAddPopover,
   handlePopoverClose,
@@ -24,6 +26,7 @@ export const AddUserButton: React.FC<AddUserButtonProps> = ({
     <>
       <Fab
         color="primary"
+        size="small"
         aria-label="add"
         aria-owns={openAddPopover ? 'mouse-over-popover-add' : undefined}
         aria-haspopup="true"

@@ -9,7 +9,12 @@ export const MoreInfoButton: React.FC<MoreInfoButtonProps> = ({
   projectId,
 }) => {
   return (
-    <Fab color="info" href={`/project/${projectId}`} variant="extended">
+    <Fab
+      size="small"
+      color="info"
+      href={`/project/${projectId}`}
+      variant="extended"
+    >
       <Info sx={{ mr: 1 }} />
       More info
     </Fab>

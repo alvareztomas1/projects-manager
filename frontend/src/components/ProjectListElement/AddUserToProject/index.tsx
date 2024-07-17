@@ -1,7 +1,7 @@
 import React from 'react';
 import { useAddUserToProject, useProjectsList } from '../../../hooks';
-import { AddUserButton } from './AddUserButton';
 import { AddUserToProjectModal } from '../../AddUserToProjectModal';
+import { AddButton } from '../../AddButton';
 
 type AddUserToProjectType = {
   projectId: string;
@@ -24,7 +24,8 @@ export const AddUserToProject: React.FC<AddUserToProjectType> = ({
   } = useAddUserToProject(projectId);
   return (
     <>
-      <AddUserButton
+      <AddButton
+        msg={'Add user to project'}
         anchorAdd={anchorAdd}
         openAddPopover={openAddPopover}
         handlePopoverClose={handlePopoverClose}

@@ -2,7 +2,8 @@ import React from 'react';
 import { Fab, Popover, Typography } from '@mui/material';
 import { Delete } from '@mui/icons-material';
 
-type DeleteProjectButtonProps = {
+type DeleteButtonProps = {
+  msg: string;
   anchorDelete: HTMLElement | null;
   openDeletePopover: boolean;
   handlePopoverOpen: (
@@ -13,7 +14,8 @@ type DeleteProjectButtonProps = {
   handleDeleteModalOpen: () => void;
 };
 
-export const DeleteProjectButton: React.FC<DeleteProjectButtonProps> = ({
+export const DeleteButton: React.FC<DeleteButtonProps> = ({
+  msg,
   anchorDelete,
   openDeletePopover,
   handlePopoverOpen,
@@ -23,6 +25,7 @@ export const DeleteProjectButton: React.FC<DeleteProjectButtonProps> = ({
   return (
     <>
       <Fab
+        size="small"
         color="error"
         aria-label="delete"
         aria-owns={openDeletePopover ? 'mouse-over-popover-delete' : undefined}
@@ -49,7 +52,7 @@ export const DeleteProjectButton: React.FC<DeleteProjectButtonProps> = ({
         onClose={() => handlePopoverClose('delete')}
         disableRestoreFocus
       >
-        <Typography sx={{ p: 1 }}>Delete project</Typography>
+        <Typography sx={{ p: 1 }}>{msg}</Typography>
       </Popover>
     </>
   );

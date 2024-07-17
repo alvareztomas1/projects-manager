@@ -2,7 +2,8 @@ import React from 'react';
 import { Fab, Popover, Typography } from '@mui/material';
 import { Edit } from '@mui/icons-material';
 
-type EditProjectButtonProps = {
+type EditButtonProps = {
+  msg: string;
   anchorEdit: HTMLElement | null;
   openEditPopover: boolean;
   handlePopoverOpen: (
@@ -13,7 +14,8 @@ type EditProjectButtonProps = {
   handleSaveProjectModalOpen: () => void;
 };
 
-export const EditProjectButton: React.FC<EditProjectButtonProps> = ({
+export const EditButton: React.FC<EditButtonProps> = ({
+  msg,
   anchorEdit,
   openEditPopover,
   handlePopoverOpen,
@@ -23,6 +25,7 @@ export const EditProjectButton: React.FC<EditProjectButtonProps> = ({
   return (
     <>
       <Fab
+        size="small"
         color="secondary"
         aria-label="edit"
         aria-owns={openEditPopover ? 'mouse-over-popover-edit' : undefined}
@@ -49,7 +52,7 @@ export const EditProjectButton: React.FC<EditProjectButtonProps> = ({
         onClose={() => handlePopoverClose('edit')}
         disableRestoreFocus
       >
-        <Typography sx={{ p: 1 }}>Edit project</Typography>
+        <Typography sx={{ p: 1 }}>{msg}</Typography>
       </Popover>
     </>
   );

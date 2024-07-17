@@ -1,7 +1,7 @@
 import React from 'react';
-import { EditProjectButton } from './EditProjectButton';
 import { ProjectFormModal } from '../../ProjectFormModal';
 import { useProjectsList, useSaveProject } from '../../../hooks';
+import { EditButton } from '../../EditButton';
 
 type EditProjectProps = {
   title: string;
@@ -25,7 +25,8 @@ export const EditProject: React.FC<EditProjectProps> = ({
   } = useSaveProject(title, description, projectId);
   return (
     <>
-      <EditProjectButton
+      <EditButton
+        msg={'Edit project'}
         anchorEdit={anchorEdit}
         openEditPopover={openEditPopover}
         handlePopoverOpen={handlePopoverOpen}
