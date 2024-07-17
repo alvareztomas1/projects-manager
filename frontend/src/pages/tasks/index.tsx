@@ -1,10 +1,16 @@
 import React from 'react';
 import { Box, Button, Chip } from '@mui/material';
 import { STATUS } from '../../constants/status';
-import { AddTaskToProject, DeleteModal, TasksDataGrid } from '../../components';
+import {
+  AddTaskToProject,
+  DeleteModal,
+  EditTask,
+  TasksDataGrid,
+} from '../../components';
 import { LoadingSpinner } from '../../common/LoadingSpinner';
 import { useDeleteTask, useTaskPage } from '../../hooks';
 import { ACCESS_LEVEL } from '../../constants/access-levels';
+
 export const TasksPage: React.FC<{}> = () => {
   const { tableColumns, tableRows, projectId, error, loading, accessLevel } =
     useTaskPage();
@@ -75,7 +81,12 @@ export const TasksPage: React.FC<{}> = () => {
                   renderCell: (params) => (
                     <div>
                       <Button color="primary">ADD USER</Button>
-                      <Button color="info">EDIT</Button>
+                      <EditTask
+                        taskId={params.row.id}
+                        taskTitle={params.row.title}
+                        taskDescription={params.row.description}
+                        taskStatus={params.row.status}
+                      />
                       <Button
                         onClick={() => handleDeleteModalOpen(params.row.id)}
                         color="error"

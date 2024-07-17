@@ -12,3 +12,4 @@ export { ProjectsList } from './ProjectsList';
 export { WelcomeMessage } from './WelcomeMessage';
 export { TasksDataGrid } from './TasksDataGrid';
 export { AddTaskToProject } from './AddTaskToProject';
+export { EditTask } from './EditTask';
