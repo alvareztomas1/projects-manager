@@ -7,8 +7,10 @@ import useDeleteProject from './home/useDeleteProject';
 import useProjectsList from './home/useProjectsList';
 import useProject from './project/useProject';
 import useAddUserToProject from './home/useAddUserToProject';
-import { useSaveTask } from './task/useSaveTask';
+import useSaveTask from './task/useSaveTask';
 import useTaskPage from './task/useTaskPage';
+import useDeleteTask from './task/useDeleteTask';
+
 export {
   useNavBar,
   useLogin,
@@ -21,4 +23,5 @@ export {
   useProject,
   useSaveTask,
   useTaskPage,
+  useDeleteTask,
 };

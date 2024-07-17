@@ -10,7 +10,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { tasks } from '../../api/tasks.api';
 import { getTasksThunk } from '../../redux/thunks/getTasks.thunk';
 
-export const useSaveTask = (
+const useSaveTask = (
   initialTitle: string = '',
   initialDescription: string = '',
   taskId: string | null = null,
@@ -72,3 +72,5 @@ export const useSaveTask = (
     addTaskFormik,
   };
 };
+
+export default useSaveTask;

@@ -1,12 +1,21 @@
 import React from 'react';
 import { Box, Button, Chip } from '@mui/material';
 import { STATUS } from '../../constants/status';
-import { AddTaskToProject, TasksDataGrid } from '../../components';
+import { AddTaskToProject, DeleteModal, TasksDataGrid } from '../../components';
 import { LoadingSpinner } from '../../common/LoadingSpinner';
-import { useTaskPage } from '../../hooks';
+import { useDeleteTask, useTaskPage } from '../../hooks';
 import { ACCESS_LEVEL } from '../../constants/access-levels';
 export const TasksPage: React.FC<{}> = () => {
   const { tableColumns, tableRows, projectId, error, loading, accessLevel } =
+    useTaskPage();
+  const {
+    deleteModalOpen,
+    taskToDeleteId,
+    handleDeleteModalClose,
+    handleDeleteModalOpen,
+    handleDelete,
+    loadingConfirmDeleteButton,
+  } = useDeleteTask();
 
   return (
     <>
@@ -68,6 +77,7 @@ export const TasksPage: React.FC<{}> = () => {
                       <Button color="primary">ADD USER</Button>
                       <Button color="info">EDIT</Button>
                       <Button
+                        onClick={() => handleDeleteModalOpen(params.row.id)}
                         color="error"
                       >
                         DELETE
@@ -77,6 +87,15 @@ export const TasksPage: React.FC<{}> = () => {
                 },
               ]}
               rows={tableRows}
+            />
+
+            <DeleteModal
+              loading={loadingConfirmDeleteButton}
+              open={deleteModalOpen}
+              id={taskToDeleteId}
+              handleConfirmDelete={() => handleDelete(taskToDeleteId)}
+              handleClose={() => handleDeleteModalClose()}
+              msg={'Sure you want to delete?'}
             />
 
             <Box m={1} display={'flex'} justifyContent={'center'}>
