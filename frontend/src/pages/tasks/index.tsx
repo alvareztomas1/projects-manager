@@ -3,17 +3,10 @@ import { Box, Button, Chip } from '@mui/material';
 import { STATUS } from '../../constants/status';
 import { AddTaskToProject, TasksDataGrid } from '../../components';
 import { LoadingSpinner } from '../../common/LoadingSpinner';
-import { useTaskPage } from '../../hooks/task/useTaskPage';
-
+import { useTaskPage } from '../../hooks';
+import { ACCESS_LEVEL } from '../../constants/access-levels';
 export const TasksPage: React.FC<{}> = () => {
-  const {
-    tableColumns,
-    tableRows,
-    projectId,
-    error,
-    loading,
-    role,
-  } = useTaskPage();
+  const { tableColumns, tableRows, projectId, error, loading, accessLevel } =
 
   return (
     <>
@@ -31,7 +24,7 @@ export const TasksPage: React.FC<{}> = () => {
               padding: 40,
             }}
           >
-            {role > ROLES.ADMIN && <AddTaskToProject />}
+            {accessLevel! > ACCESS_LEVEL.BASIC && <AddTaskToProject />}
 
             <TasksDataGrid
               columns={[

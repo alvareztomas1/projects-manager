@@ -5,7 +5,8 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { useParams } from 'react-router-dom';
 import { STATUS } from '../../constants/status';
 import { RejectedActionFromAsyncThunk } from '@reduxjs/toolkit/dist/matchers';
-import { ROLES } from '../../constants/roles';
+import { getUserThunk } from '../../redux/thunks/getUser.thunk';
+import { ACCESS_LEVEL } from '../../constants/access-levels';
 
 interface IUseTaskPage {
   tableColumns: GridColDef[];
@@ -20,13 +21,15 @@ interface IUseTaskPage {
   projectId: string | undefined;
   error: RejectedActionFromAsyncThunk<any> | null;
   loading: boolean;
-  role: ROLES;
+  accessLevel: ACCESS_LEVEL | undefined;
 }
 
-export const useTaskPage = (): IUseTaskPage => {
+const useTaskPage = (): IUseTaskPage => {
   const { projectId } = useParams();
+  const { accessToken, userData } = useAppSelector(
+    (state) => state.authReducer,
+  );
   const { user } = useAppSelector((state) => state.getUserReducer);
-  const { accessToken } = useAppSelector((state) => state.authReducer);
   const dispatch = useAppDispatch();
   const { tasks, loading, error } = useAppSelector(
     (state) => state.getTasksReducer,
@@ -59,15 +62,28 @@ export const useTaskPage = (): IUseTaskPage => {
 
   React.useEffect(() => {
     const getTasks = async () => {
-      dispatch(
+      await dispatch(
         getTasksThunk({
           projectId: projectId!,
           accessToken: accessToken!,
         }),
       );
     };
+    const getUser = async () => {
+      await dispatch(
+        getUserThunk({
+          userId: userData!.id,
+          accessToken: accessToken!,
+        }),
+      );
+    };
     getTasks();
+    getUser();
   }, [dispatch]);
+
+  const userInProject = user?.projectsIncluded.find(
+    (userProject) => userProject.project.id === projectId,
+  );
 
   return {
     tableColumns,
@@ -75,6 +91,8 @@ export const useTaskPage = (): IUseTaskPage => {
     projectId,
     error,
     loading,
-    role: user!.role,
+    accessLevel: userInProject?.accessLevel,
   };
 };
+
+export default useTaskPage;
