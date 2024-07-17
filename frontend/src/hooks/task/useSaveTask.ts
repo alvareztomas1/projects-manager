@@ -6,8 +6,9 @@ import { AddTask } from '../../types/task.type';
 import { SaveTaskValidate } from '../../utils/validateForm';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useNotification } from '../../context/notification.context';
-import { useAppSelector } from '../../redux/hooks';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { tasks } from '../../api/tasks.api';
+import { getTasksThunk } from '../../redux/thunks/getTasks.thunk';
 
 export const useSaveTask = (
   initialTitle: string = '',
@@ -21,6 +22,7 @@ export const useSaveTask = (
   const [saveTaskModalOpen, setSaveTaskModalOpen] = React.useState(false);
   const [loadingSaveTaskButton, setLoadingSaveTaskButton] =
     React.useState(false);
+  const dispatch = useAppDispatch();
 
   const handleSaveTaskModalOpen = () => {
     setSaveTaskModalOpen(true);
@@ -48,7 +50,13 @@ export const useSaveTask = (
           getInfo('! Task edited successfully !');
         }
 
-        navigate('/login');
+        await dispatch(
+          getTasksThunk({
+            projectId: projectId!,
+            accessToken: accessToken!,
+          }),
+        );
+        navigate(`/project/tasks/${projectId}`);
       } catch (error) {
         getError((error as Error).message);
         setLoadingSaveTaskButton(false);

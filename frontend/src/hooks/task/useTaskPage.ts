@@ -5,6 +5,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { useParams } from 'react-router-dom';
 import { STATUS } from '../../constants/status';
 import { RejectedActionFromAsyncThunk } from '@reduxjs/toolkit/dist/matchers';
+import { ROLES } from '../../constants/roles';
 
 interface IUseTaskPage {
   tableColumns: GridColDef[];
@@ -19,10 +20,12 @@ interface IUseTaskPage {
   projectId: string | undefined;
   error: RejectedActionFromAsyncThunk<any> | null;
   loading: boolean;
+  role: ROLES;
 }
 
 export const useTaskPage = (): IUseTaskPage => {
   const { projectId } = useParams();
+  const { user } = useAppSelector((state) => state.getUserReducer);
   const { accessToken } = useAppSelector((state) => state.authReducer);
   const dispatch = useAppDispatch();
   const { tasks, loading, error } = useAppSelector(
@@ -72,5 +75,6 @@ export const useTaskPage = (): IUseTaskPage => {
     projectId,
     error,
     loading,
+    role: user!.role,
   };
 };

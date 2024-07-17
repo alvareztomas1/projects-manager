@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, Button, Chip } from '@mui/material';
 import { STATUS } from '../../constants/status';
-import { TasksDataGrid } from '../../components';
+import { AddTaskToProject, TasksDataGrid } from '../../components';
 import { LoadingSpinner } from '../../common/LoadingSpinner';
 import { useTaskPage } from '../../hooks/task/useTaskPage';
 
@@ -12,6 +12,7 @@ export const TasksPage: React.FC<{}> = () => {
     projectId,
     error,
     loading,
+    role,
   } = useTaskPage();
 
   return (
@@ -30,6 +31,8 @@ export const TasksPage: React.FC<{}> = () => {
               padding: 40,
             }}
           >
+            {role > ROLES.ADMIN && <AddTaskToProject />}
+
             <TasksDataGrid
               columns={[
                 ...tableColumns,
