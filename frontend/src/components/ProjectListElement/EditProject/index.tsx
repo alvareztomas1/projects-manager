@@ -27,6 +27,7 @@ export const EditProject: React.FC<EditProjectProps> = ({
     <>
       <EditButton
         msg={'Edit project'}
+        size="medium"
         anchorEdit={anchorEdit}
         openEditPopover={openEditPopover}
         handlePopoverOpen={handlePopoverOpen}

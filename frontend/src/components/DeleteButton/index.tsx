@@ -4,6 +4,8 @@ import { Delete } from '@mui/icons-material';
 
 type DeleteButtonProps = {
   msg: string;
+  size: 'small' | 'medium' | 'large';
+
   anchorDelete: HTMLElement | null;
   openDeletePopover: boolean;
   handlePopoverOpen: (
@@ -16,6 +18,7 @@ type DeleteButtonProps = {
 
 export const DeleteButton: React.FC<DeleteButtonProps> = ({
   msg,
+  size,
   anchorDelete,
   openDeletePopover,
   handlePopoverOpen,
@@ -25,7 +28,7 @@ export const DeleteButton: React.FC<DeleteButtonProps> = ({
   return (
     <>
       <Fab
-        size="small"
+        size={size}
         color="error"
         aria-label="delete"
         aria-owns={openDeletePopover ? 'mouse-over-popover-delete' : undefined}

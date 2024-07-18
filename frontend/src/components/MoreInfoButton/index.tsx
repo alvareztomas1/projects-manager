@@ -4,13 +4,15 @@ import React from 'react';
 
 type MoreInfoButtonProps = {
   projectId: string;
+  size: 'small' | 'medium' | 'large';
 };
 export const MoreInfoButton: React.FC<MoreInfoButtonProps> = ({
   projectId,
+  size,
 }) => {
   return (
     <Fab
-      size="small"
+      size={size}
       color="info"
       href={`/project/${projectId}`}
       variant="extended"

@@ -14,7 +14,7 @@ import { ProjectDescription } from './ProjectDescription';
 import { AddUserToProject } from './AddUserToProject';
 import { EditProject } from './EditProject';
 import { DeleteProject } from './DeleteProject';
-import { MoreInfoButton } from './MoreInfoButton';
+import { MoreInfoButton } from '../MoreInfoButton';
 
 export type ProjectProps = {
   id: string;
@@ -59,7 +59,7 @@ export const ProjectListElement: React.FC<ProjectProps> = ({
           variant="text"
           aria-label="Basic button group"
         >
-          <MoreInfoButton projectId={id} />
+          <MoreInfoButton projectId={id} size="large" />
 
           {+accessLevel > ACCESS_LEVEL.BASIC && (
             <>

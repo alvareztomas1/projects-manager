@@ -26,6 +26,7 @@ export const AddUserToProject: React.FC<AddUserToProjectType> = ({
     <>
       <AddButton
         msg={'Add user to project'}
+        size="medium"
         anchorAdd={anchorAdd}
         openAddPopover={openAddPopover}
         handlePopoverClose={handlePopoverClose}

@@ -4,6 +4,7 @@ import { Edit } from '@mui/icons-material';
 
 type EditButtonProps = {
   msg: string;
+  size: 'small' | 'medium' | 'large';
   anchorEdit: HTMLElement | null;
   openEditPopover: boolean;
   handlePopoverOpen: (
@@ -16,6 +17,7 @@ type EditButtonProps = {
 
 export const EditButton: React.FC<EditButtonProps> = ({
   msg,
+  size,
   anchorEdit,
   openEditPopover,
   handlePopoverOpen,
@@ -25,7 +27,7 @@ export const EditButton: React.FC<EditButtonProps> = ({
   return (
     <>
       <Fab
-        size="small"
+        size={size}
         color="secondary"
         aria-label="edit"
         aria-owns={openEditPopover ? 'mouse-over-popover-edit' : undefined}

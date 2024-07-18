@@ -26,6 +26,7 @@ export const DeleteProject: React.FC<DeleteProjectProps> = ({ projectId }) => {
     <>
       <DeleteButton
         msg={'Delete project'}
+        size="medium"
         anchorDelete={anchorDelete}
         openDeletePopover={openDeletePopover}
         handlePopoverOpen={handlePopoverOpen}

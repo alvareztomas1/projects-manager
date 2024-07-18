@@ -4,6 +4,7 @@ import { Fab, Popover, Typography } from '@mui/material';
 
 type AddButtonProps = {
   msg: string;
+  size: 'small' | 'medium' | 'large';
   anchorAdd: HTMLElement | null;
   openAddPopover: boolean;
   handlePopoverOpen: (
@@ -16,6 +17,7 @@ type AddButtonProps = {
 
 export const AddButton: React.FC<AddButtonProps> = ({
   msg,
+  size,
   anchorAdd,
   openAddPopover,
   handlePopoverClose,
@@ -26,7 +28,7 @@ export const AddButton: React.FC<AddButtonProps> = ({
     <>
       <Fab
         color="primary"
-        size="small"
+        size={size}
         aria-label="add"
         aria-owns={openAddPopover ? 'mouse-over-popover-add' : undefined}
         aria-haspopup="true"
