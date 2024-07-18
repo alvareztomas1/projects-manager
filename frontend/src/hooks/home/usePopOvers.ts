@@ -1,7 +1,7 @@
 import React from 'react';
-import { IUseProjectsListHook } from '../../interfaces/custom.hooks.interface';
+import { IUsePopOversHook } from '../../interfaces/custom.hooks.interface';
 
-const useProjectsList = (): IUseProjectsListHook => {
+const usePopOvers = (): IUsePopOversHook => {
   const [anchorAdd, setAnchorAdd] = React.useState<HTMLElement | null>(null);
   const [anchorEdit, setAnchorEdit] = React.useState<HTMLElement | null>(null);
   const [anchorDelete, setAnchorDelete] = React.useState<HTMLElement | null>(
@@ -46,4 +46,4 @@ const useProjectsList = (): IUseProjectsListHook => {
   };
 };
 
-export default useProjectsList;
+export default usePopOvers;

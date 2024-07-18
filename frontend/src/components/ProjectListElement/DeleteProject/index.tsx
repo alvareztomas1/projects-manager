@@ -1,7 +1,7 @@
 import React from 'react';
 import { DeleteButton } from '../../DeleteButton';
 import { DeleteModal } from '../../DeleteModal';
-import { useDeleteProject, useProjectsList } from '../../../hooks';
+import { useDeleteProject, usePopOvers } from '../../../hooks';
 
 type DeleteProjectProps = {
   projectId: string;
@@ -13,7 +13,7 @@ export const DeleteProject: React.FC<DeleteProjectProps> = ({ projectId }) => {
     openDeletePopover,
     handlePopoverOpen,
     handlePopoverClose,
-  } = useProjectsList();
+  } = usePopOvers();
 
   const {
     openDeleteModal,

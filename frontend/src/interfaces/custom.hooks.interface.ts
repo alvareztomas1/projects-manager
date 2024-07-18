@@ -61,7 +61,7 @@ export interface IUseDeleteProjectHook {
   handleConfirmDelete: (id: string) => Promise<void>;
 }
 
-export interface IUseProjectsListHook {
+export interface IUsePopOversHook {
   anchorAdd: HTMLElement | null;
   anchorEdit: HTMLElement | null;
   anchorDelete: HTMLElement | null;

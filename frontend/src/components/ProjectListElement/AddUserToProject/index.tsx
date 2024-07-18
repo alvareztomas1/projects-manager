@@ -1,5 +1,5 @@
 import React from 'react';
-import { useAddUserToProject, useProjectsList } from '../../../hooks';
+import { useAddUserToProject, usePopOvers } from '../../../hooks';
 import { AddUserToProjectModal } from '../../AddUserToProjectModal';
 import { AddButton } from '../../AddButton';
 
@@ -11,7 +11,7 @@ export const AddUserToProject: React.FC<AddUserToProjectType> = ({
   projectId,
 }) => {
   const { anchorAdd, openAddPopover, handlePopoverOpen, handlePopoverClose } =
-    useProjectsList();
+    usePopOvers();
   const {
     addUserToProjectModalOpen,
     handleAddUserToProjectModalClose,

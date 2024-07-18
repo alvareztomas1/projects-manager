@@ -4,7 +4,7 @@ import useSignup from './signup/useSignup';
 import useHomePage from './home/useHomePage';
 import useSaveProject from './home/useSaveProject';
 import useDeleteProject from './home/useDeleteProject';
-import useProjectsList from './home/useProjectsList';
+import usePopOvers from './home/usePopOvers';
 import useProject from './project/useProject';
 import useAddUserToProject from './home/useAddUserToProject';
 import useSaveTask from './task/useSaveTask';
@@ -18,7 +18,7 @@ export {
   useHomePage,
   useSaveProject,
   useDeleteProject,
-  useProjectsList,
+  usePopOvers,
   useAddUserToProject,
   useProject,
   useSaveTask,

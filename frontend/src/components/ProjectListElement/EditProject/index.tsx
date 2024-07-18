@@ -1,6 +1,6 @@
 import React from 'react';
 import { ProjectFormModal } from '../../ProjectFormModal';
-import { useProjectsList, useSaveProject } from '../../../hooks';
+import { usePopOvers, useSaveProject } from '../../../hooks';
 import { EditButton } from '../../EditButton';
 
 type EditProjectProps = {
@@ -15,7 +15,7 @@ export const EditProject: React.FC<EditProjectProps> = ({
   projectId,
 }) => {
   const { anchorEdit, openEditPopover, handlePopoverOpen, handlePopoverClose } =
-    useProjectsList();
+    usePopOvers();
   const {
     SaveProjectModalOpen,
     formik,
