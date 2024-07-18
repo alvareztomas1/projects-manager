@@ -1,8 +1,8 @@
-import { Button } from '@mui/material';
 import React from 'react';
 import { SaveTaskModal } from '../SaveTaskModal';
 import { STATUS } from '../../constants/status';
-import { useSaveTask } from '../../hooks';
+import { usePopOvers, useSaveTask } from '../../hooks';
+import { EditButton } from '../EditButton';
 
 type EditTaskProps = {
   taskId: string;
@@ -24,11 +24,19 @@ export const EditTask: React.FC<EditTaskProps> = ({
     loadingSaveTaskButton,
     saveTaskFormik,
   } = useSaveTask(taskId, taskTitle, taskDescription, taskStatus);
+  const { anchorEdit, openEditPopover, handlePopoverOpen, handlePopoverClose } =
+    usePopOvers();
   return (
     <>
-      <Button onClick={() => handleSaveTaskModalOpen()} color="info">
-        EDIT
-      </Button>
+      <EditButton
+        msg={'Edit task'}
+        size="small"
+        handleSaveProjectModalOpen={handleSaveTaskModalOpen}
+        anchorEdit={anchorEdit}
+        openEditPopover={openEditPopover}
+        handlePopoverOpen={handlePopoverOpen}
+        handlePopoverClose={handlePopoverClose}
+      />
       <SaveTaskModal
         msg={'EDIT TASK'}
         handleClose={() => handleSaveTaskModalClose()}

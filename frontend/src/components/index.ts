@@ -16,3 +16,4 @@ export { EditTask } from './EditTask';
 export { AddButton } from './AddButton';
 export { EditButton } from './EditButton';
 export { DeleteButton } from './DeleteButton';
+export { TaskOperationsButtons } from './TaskOperationsButtons';

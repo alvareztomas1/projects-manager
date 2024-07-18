@@ -1,10 +1,10 @@
 import React from 'react';
-import { Box, Button, Chip } from '@mui/material';
+import { Box, Button, Chip, Grid } from '@mui/material';
 import { STATUS } from '../../constants/status';
 import {
   AddTaskToProject,
   DeleteModal,
-  EditTask,
+  TaskOperationsButtons,
   TasksDataGrid,
 } from '../../components';
 import { LoadingSpinner } from '../../common/LoadingSpinner';
@@ -79,21 +79,15 @@ export const TasksPage: React.FC<{}> = () => {
                   filterable: false,
                   headerAlign: 'center',
                   renderCell: (params) => (
-                    <div>
-                      <Button color="primary">ADD USER</Button>
-                      <EditTask
-                        taskId={params.row.id}
-                        taskTitle={params.row.title}
-                        taskDescription={params.row.description}
-                        taskStatus={params.row.status}
-                      />
-                      <Button
-                        onClick={() => handleDeleteModalOpen(params.row.id)}
-                        color="error"
-                      >
-                        DELETE
-                      </Button>
-                    </div>
+                    <TaskOperationsButtons
+                      taskId={params.row.id}
+                      taskTitle={params.row.title}
+                      taskDescription={params.row.description}
+                      taskStatus={params.row.status}
+                      handleDeleteModalOpen={() =>
+                        handleDeleteModalOpen(params.row.id)
+                      }
+                    />
                   ),
                 },
               ]}
