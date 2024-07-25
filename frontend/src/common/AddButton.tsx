@@ -12,7 +12,7 @@ type AddButtonProps = {
     type: 'add' | 'edit' | 'delete',
   ) => void;
   handlePopoverClose: (type: 'add' | 'edit' | 'delete') => void;
-  handleAddUserToProjectModalOpen: () => void;
+  handleModalOpen: () => void;
 };
 
 export const AddButton: React.FC<AddButtonProps> = ({
@@ -22,7 +22,7 @@ export const AddButton: React.FC<AddButtonProps> = ({
   openAddPopover,
   handlePopoverClose,
   handlePopoverOpen,
-  handleAddUserToProjectModalOpen,
+  handleModalOpen,
 }) => {
   return (
     <>
@@ -34,7 +34,7 @@ export const AddButton: React.FC<AddButtonProps> = ({
         aria-haspopup="true"
         onMouseEnter={(e) => handlePopoverOpen(e, 'add')}
         onMouseLeave={() => handlePopoverClose('add')}
-        onClick={() => handleAddUserToProjectModalOpen()}
+        onClick={() => handleModalOpen()}
       >
         <Add />
       </Fab>
@@ -54,7 +54,7 @@ export const AddButton: React.FC<AddButtonProps> = ({
         onClose={() => handlePopoverClose('add')}
         disableRestoreFocus
       >
-        <Typography sx={{ p: 1 }}>Add user to project</Typography>
+        <Typography sx={{ p: 1 }}>{msg}</Typography>
       </Popover>
     </>
   );

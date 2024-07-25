@@ -1,7 +1,7 @@
 import React from 'react';
 import { useAddUserToProject, usePopOvers } from '../../../hooks';
 import { AddUserToProjectModal } from '../../AddUserToProjectModal';
-import { AddButton } from '../../AddButton';
+import { AddButton } from '../../../common/AddButton';
 
 type AddUserToProjectType = {
   projectId: string;

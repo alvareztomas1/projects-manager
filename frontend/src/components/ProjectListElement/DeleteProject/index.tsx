@@ -1,5 +1,5 @@
 import React from 'react';
-import { DeleteButton } from '../../DeleteButton';
+import { DeleteButton } from '../../../common/DeleteButton';
 import { DeleteModal } from '../../DeleteModal';
 import { useDeleteProject, usePopOvers } from '../../../hooks';
 

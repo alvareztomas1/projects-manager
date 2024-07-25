@@ -1,7 +1,7 @@
 import React from 'react';
 import { ProjectFormModal } from '../../ProjectFormModal';
 import { usePopOvers, useSaveProject } from '../../../hooks';
-import { EditButton } from '../../EditButton';
+import { EditButton } from '../../../common/EditButton';
 
 type EditProjectProps = {
   title: string;

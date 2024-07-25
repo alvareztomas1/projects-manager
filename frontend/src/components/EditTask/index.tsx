@@ -2,7 +2,7 @@ import React from 'react';
 import { SaveTaskModal } from '../SaveTaskModal';
 import { STATUS } from '../../constants/status';
 import { usePopOvers, useSaveTask } from '../../hooks';
-import { EditButton } from '../EditButton';
+import { EditButton } from '../../common/EditButton';
 
 type EditTaskProps = {
   taskId: string;

@@ -12,7 +12,7 @@ type EditButtonProps = {
     type: 'add' | 'edit' | 'delete',
   ) => void;
   handlePopoverClose: (type: 'add' | 'edit' | 'delete') => void;
-  handleSaveProjectModalOpen: () => void;
+  handletModalOpen: () => void;
 };
 
 export const EditButton: React.FC<EditButtonProps> = ({
@@ -22,7 +22,7 @@ export const EditButton: React.FC<EditButtonProps> = ({
   openEditPopover,
   handlePopoverOpen,
   handlePopoverClose,
-  handleSaveProjectModalOpen,
+  handletModalOpen,
 }) => {
   return (
     <>
@@ -34,7 +34,7 @@ export const EditButton: React.FC<EditButtonProps> = ({
         aria-haspopup="true"
         onMouseEnter={(e) => handlePopoverOpen(e, 'edit')}
         onMouseLeave={() => handlePopoverClose('edit')}
-        onClick={() => handleSaveProjectModalOpen()}
+        onClick={() => handletModalOpen()}
       >
         <Edit />
       </Fab>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { usePopOvers } from '../../hooks';
-import { DeleteButton } from '../DeleteButton';
+import { DeleteButton } from '../../common/DeleteButton';
 
 export const DeleteTask: React.FC<any> = ({ handleOpen }) => {
   const {
