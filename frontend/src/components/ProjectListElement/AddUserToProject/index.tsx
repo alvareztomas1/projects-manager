@@ -31,7 +31,7 @@ export const AddUserToProject: React.FC<AddUserToProjectType> = ({
         openAddPopover={openAddPopover}
         handlePopoverClose={handlePopoverClose}
         handlePopoverOpen={handlePopoverOpen}
-        handleAddUserToProjectModalOpen={handleAddUserToProjectModalOpen}
+        handleModalOpen={handleAddUserToProjectModalOpen}
       />
       <AddUserToProjectModal
         loadingAddUserButton={loadingAddUserButton}

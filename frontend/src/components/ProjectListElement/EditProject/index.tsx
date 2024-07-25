@@ -32,7 +32,7 @@ export const EditProject: React.FC<EditProjectProps> = ({
         openEditPopover={openEditPopover}
         handlePopoverOpen={handlePopoverOpen}
         handlePopoverClose={handlePopoverClose}
-        handleSaveProjectModalOpen={handleSaveProjectModalOpen}
+        handletModalOpen={handleSaveProjectModalOpen}
       />
       <ProjectFormModal
         loadingButton={loadingConfirmSaveButton}

@@ -31,7 +31,7 @@ export const EditTask: React.FC<EditTaskProps> = ({
       <EditButton
         msg={'Edit task'}
         size="small"
-        handleSaveProjectModalOpen={handleSaveTaskModalOpen}
+        handletModalOpen={handleSaveTaskModalOpen}
         anchorEdit={anchorEdit}
         openEditPopover={openEditPopover}
         handlePopoverOpen={handlePopoverOpen}
