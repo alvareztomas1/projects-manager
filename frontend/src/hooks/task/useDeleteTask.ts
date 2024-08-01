@@ -42,7 +42,7 @@ const useDeleteTask = (): IUseDeleteTask => {
           projectId: projectId!,
         }),
       );
-      getSuccess('Project deleted');
+      getSuccess('Task deleted');
     } catch (error) {
       getError((error as Error).message);
     }
